@@ -6,7 +6,7 @@ import java.util.Date;
 public class Cliente {
 
     //Atributos
-    private Integer id;
+    private int id;
     private String nome;
     private String sobrenome;
     private Date dataNascimento;
@@ -19,7 +19,7 @@ public class Cliente {
     private String estado;
 
     //Métodos de acesso
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
@@ -71,7 +71,7 @@ public class Cliente {
         this.estado = estado;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
