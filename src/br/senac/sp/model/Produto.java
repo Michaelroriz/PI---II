@@ -5,6 +5,8 @@
  */
 package br.senac.sp.model;
 
+import java.util.Date;
+
 /**
  *
  * @author monique.ralves
@@ -13,9 +15,37 @@ public class Produto {
     
     private Integer codigo;
     private String nome;
+    private Date data;
+    private int quantidade;
+    private float valor;    
     private String categoria;
     private String descricao;
 
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public float getValor() {
+        return valor;
+    }
+
+    public void setValor(float valor) {
+        this.valor = valor;
+    }
+
+    
     public Integer getCodigo() {
         return codigo;
     }
