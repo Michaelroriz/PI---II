@@ -1,6 +1,6 @@
-package br.senac.sp.mock;
+package br.senac.sp.dados;
 
-import br.senac.sp.model.Produto;
+import br.senac.sp.classes.Produto;
 import java.util.ArrayList;
 import java.util.List;
 

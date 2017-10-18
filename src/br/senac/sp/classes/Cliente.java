@@ -1,77 +1,26 @@
 package br.senac.sp.classes;
 
+import br.senac.sp.classes.Endereco;
 import java.util.Date;
-
 //Classe de negócio de cliente
+
 public class Cliente {
 
     //Atributos
-    private int id;
+    private Integer id;
     private String nome;
     private String sobrenome;
     private Date dataNascimento;
     private String genero;
-    private String endereco;
+    private Endereco endereco;
     private String cpf;
-    private String complemento;
-    private String cep;
-    private String cidade;
-    private String estado;
 
     //Métodos de acesso
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
-    }
-
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -104,6 +53,24 @@ public class Cliente {
     }
 
     public void setGenero(String genero) {
-        this.genero = genero; 
+        this.genero = genero;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    // endereco cliente recebe um objeto endereco
+    public void setEndereco(Endereco end) {
+        this.endereco = end;
+
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
     }
 }

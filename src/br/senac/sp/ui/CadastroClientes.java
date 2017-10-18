@@ -5,7 +5,7 @@
  */
 package br.senac.sp.ui;
 
-import br.senac.sp.model.Cliente;
+import br.senac.sp.classes.Cliente;
 
 /**
  *

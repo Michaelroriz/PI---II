@@ -5,8 +5,8 @@
  */
 package br.senac.sp.ui;
 
-import br.senac.sp.model.Produto;
-import br.senac.sp.service.produto.ServiceProduto;
+import br.senac.sp.classes.Produto;
+import br.senac.sp.servicos.ServiceProduto;
 import java.util.Date;
 import javax.swing.JOptionPane;
 

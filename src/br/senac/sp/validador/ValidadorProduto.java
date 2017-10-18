@@ -1,7 +1,7 @@
-package br.senac.sp.validador.produto;
+package br.senac.sp.validador;
 
 import br.senac.sp.exceptions.ProdutoException;
-import br.senac.sp.model.Produto;
+import br.senac.sp.classes.Produto;
 
 //Validador de dados do cliente
 public class ValidadorProduto {

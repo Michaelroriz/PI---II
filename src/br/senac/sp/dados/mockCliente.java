@@ -28,7 +28,9 @@ public class mockCliente {
     }
 
     /**
-     * @param Cliente cliente que os dados serão alterados
+     * Altera os dados do cliente informado
+     *
+     * @param Cliente
      * @throws Exception
      */
     public static void atualizarCliente(Cliente buscaCliente)
@@ -113,9 +115,9 @@ public class mockCliente {
      * @return
      * @throws Exception
      */
-    public static Cliente obter(Integer id)
+    public static Cliente obter(int id)
             throws Exception {
-        if (id != null && !listaClientes.isEmpty()) {
+        if (id != 0 && !listaClientes.isEmpty()) {
             for (int i = 0; i < listaClientes.size(); i++) {
                 if (listaClientes.get(i) != null && listaClientes.get(i).getId() == id) {
                     return listaClientes.get(i);
