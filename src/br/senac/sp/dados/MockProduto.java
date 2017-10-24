@@ -6,10 +6,13 @@ import java.util.List;
 
 //Mock de Produto. Realiza operações de mock com o produto. 
 public class MockProduto {
+
     private static int totalProdutos = 0;
-    /** Armazena a lista de produtos inseridos para manipulação. #MOCK **/    
+    /**
+     * Armazena a lista de produtos inseridos para manipulação. #MOCK *
+     */    
     private static List<Produto> listaProdutos = new ArrayList<Produto>();
-    
+
     //Insere um produto no mock "produto"
     public static void inserir(Produto produto)
             throws Exception {
@@ -25,11 +28,13 @@ public class MockProduto {
             for (Produto produtoLi : listaProdutos) {
                 if (produtoLi != null && produtoLi.getCodigo() == produtoProcura.getCodigo()) {
                     produtoLi.setNome(produtoProcura.getNome());
-                    produtoLi.setData(produtoProcura.getData());
                     produtoLi.setQuantidade(produtoProcura.getQuantidade());                    
                     produtoLi.setValor(produtoProcura.getValor());
                     produtoLi.setCategoria(produtoProcura.getCategoria());
                     produtoLi.setDescricao(produtoProcura.getDescricao());                    
+                    produtoLi.setComposicao(produtoProcura.getComposicao());
+                    produtoLi.setMarca(produtoProcura.getMarca());
+                    produtoLi.setTamanho(produtoProcura.getTamanho());
                     break;
                 }
             }
@@ -52,7 +57,7 @@ public class MockProduto {
 
     //Lista todos os produtos
     public static List<Produto> listar()
-            throws Exception {       
+            throws Exception {
         //Retorna a lista de produtos
         return listaProdutos;
     }
@@ -72,7 +77,7 @@ public class MockProduto {
                 }
             }
         }
-        
+
         //Retorna a lista de produtos encontrados
         return listaResultado;
     }

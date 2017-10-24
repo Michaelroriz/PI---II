@@ -5,28 +5,46 @@
  */
 package br.senac.sp.classes;
 
-import java.util.Date;
+
 
 /**
  *
  * @author monique.ralves
  */
 public class Produto {
-    
+
     private Integer codigo;
     private String nome;
-    private Date data;
     private int quantidade;
-    private float valor;    
+    private float valor;
     private String categoria;
     private String descricao;
+    private String composicao; //composicao
+    private String marca; // marca
+    private String tamanho; // tamanho
 
-    public Date getData() {
-        return data;
+    public String getTamanho() {
+        return tamanho;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public void setTamanho(String tamanho) {
+        this.tamanho = tamanho;
+    }
+
+    public String getComposicao() {
+        return composicao;
+    }
+
+    public void setComposicao(String composicao) {
+        this.composicao = composicao;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
     public int getQuantidade() {
@@ -45,7 +63,6 @@ public class Produto {
         this.valor = valor;
     }
 
-    
     public Integer getCodigo() {
         return codigo;
     }
@@ -77,5 +94,5 @@ public class Produto {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    
+
 }

@@ -177,7 +177,7 @@ public class TelaProdutos extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(listProdutos);
 
-        formattedData.setText("Data");
+        formattedData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM))));
         formattedData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 formattedDataActionPerformed(evt);
