@@ -198,7 +198,7 @@ public class CadastroClientes extends javax.swing.JPanel {
     private void txt_nomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_nomeMouseClicked
         // TODO add your handling code here:
         
-        txt
+        
     }//GEN-LAST:event_txt_nomeMouseClicked
 
 
