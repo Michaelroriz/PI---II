@@ -5,12 +5,6 @@
  */
 package br.senac.sp.classes;
 
-
-
-/**
- *
- * @author monique.ralves
- */
 public class Produto {
 
     private Integer codigo;
