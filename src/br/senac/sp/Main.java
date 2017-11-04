@@ -5,6 +5,8 @@
  */
 package br.senac.sp;
 
+import br.senac.sp.ui.Menu;
+
 /**
  *
  * @author michael.aroriz
@@ -15,7 +17,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Menu menu = new Menu();        
+        menu.setVisible(true);
     }
     
 }
