@@ -1,6 +1,6 @@
 package br.senac.sp.servicos;
 
-import br.senac.sp.dados.mockCliente;
+import br.senac.sp.dados.MockCliente;
 import br.senac.sp.exceptions.ClienteException;
 import br.senac.sp.exceptions.DataSourceException;
 import br.senac.sp.classes.Cliente;
@@ -27,7 +27,7 @@ public class ServicoCliente {
 
         try {
             // Realiza a chamada de iserção na fonte de dados
-            mockCliente.inserir(cliente);
+            MockCliente.inserir(cliente);
 
         } catch (Exception e) {
             //Imprime qualquer erro Técnico no console e devolve
@@ -49,7 +49,7 @@ public class ServicoCliente {
         validadorCliente.validar(cliente);
         try {
             // realiza a chamada de atualização na fonte de dados
-            mockCliente.atualizarCliente(cliente);
+            MockCliente.atualizarCliente(cliente);
             return;
 
         } catch (Exception e) {
@@ -75,10 +75,10 @@ public class ServicoCliente {
             //Caso afirmativo, realiza uma listagem simples no banco da dados
             //Caso contrário, relaiza uma pesquisa com o parâmetro
             if (nome == null || "".equals(nome)) {
-                return mockCliente.listar();
+                return MockCliente.listar();
 
             } else {
-                return mockCliente.procurar(nome);
+                return MockCliente.procurar(nome);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,7 +99,7 @@ public class ServicoCliente {
             throws ClienteException, DataSourceException {
         try {
             // Retorna o cliente obtido
-            return mockCliente.obter(id);
+            return MockCliente.obter(id);
 
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devololve
@@ -120,7 +120,7 @@ public class ServicoCliente {
     public static void excluirCliente(int id) throws ClienteException, DataSourceException {
         try {
             //Solicita a fonte de dados a exclusão do cliente informado
-            mockCliente.excluir(id);
+            MockCliente.excluir(id);
 
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devolve 

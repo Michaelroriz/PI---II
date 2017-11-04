@@ -13,7 +13,7 @@ public class ValidadorProduto {
         }
         if (produto.getNome() == null || "".equals(produto.getNome())) {
             throw new ProdutoException("É necessário informar "
-                    + "um nome de produto");
+                    + "o nome do produto");
         }
         if (produto.getQuantidade() <= 0 || produto.getQuantidade() == 0) {
             throw new ProdutoException("É necessário informar uma "
@@ -23,8 +23,7 @@ public class ValidadorProduto {
             throw new ProdutoException("É necessário informar o "
                     + "valor do produto");
         }
-        if (produto.getCategoria() == null || "".equals(produto.getCategoria())
-                || (produto.getCategoria().equals("Categoria"))
+        if (produto.getCategoria() == null || "".equals(produto.getCategoria())                
                 || (!produto.getCategoria().equals("Cama"))
                 && (!produto.getCategoria().equals("Mesa"))
                 && !produto.getCategoria().equals("Banho")) {
@@ -43,13 +42,8 @@ public class ValidadorProduto {
             throw new ProdutoException("É necessário informar a "
                     + "marca do produto");
         }
-        if (produto.getTamanho() == null || "".equals(produto.getTamanho())
-                || (produto.getTamanho().equals("Tamanho"))
-                || (!produto.getTamanho().equals("Queen Size"))
-                && (!produto.getTamanho().equals("King Size"))
-                && (!produto.getTamanho().equals("Casal"))
-                && !produto.getTamanho().equals("Solteiro")) {
-            throw new ProdutoException("É necessário informar a "
+        if (produto.getTamanho() == null || "".equals(produto.getTamanho())){
+                throw new ProdutoException("É necessário informar o "
                     + "tamanho do produto");
         }
 
