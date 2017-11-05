@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.senac.sp.ui;
 
 import br.senac.sp.classes.Produto;
 import br.senac.sp.exceptions.ProdutoException;
 import br.senac.sp.servicos.ServiceProduto;
+import java.awt.Dimension;
 import java.util.List;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -305,6 +302,15 @@ public class Produtos extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, "Produto inserido com sucesso",
                 "Cadastro efetuado", JOptionPane.INFORMATION_MESSAGE);
         
+        //Limpa os campos da tela após realizar a inserção
+        fieldNomeAdd.setText("");
+        fieldDescricaoAdd.setText("");
+        comboCategoriaAdd.setSelectedIndex(0);
+        fieldComposicaoAdd.setText("");
+        fieldMarcaAdd.setText("");
+        fieldTamanhoAdd.setText("");
+        fieldValorAdd.setText("");
+        fieldQuantidadeAdd.setText("");
     }//GEN-LAST:event_buttonConfirmarAddActionPerformed
     
     private void buttonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarActionPerformed
@@ -437,8 +443,12 @@ public class Produtos extends javax.swing.JFrame {
                 formEditarProduto.dispose();                
                 formEditarProduto = new AlterarProduto();                
                 formEditarProduto.setProduto(produto);
-                formEditarProduto.setTitle(produto.getNome() + " " + produto.getDescricao() + " " + produto.getCategoria() + " " + produto.getComposicao() + " " + produto.getMarca() + " " + produto.getTamanho() + " " + produto.getValor() + " " + produto.getQuantidade());
-                this.getParent().add(formEditarProduto);                 
+                formEditarProduto.setName(produto.getNome() + " " + produto.getDescricao() + " " + produto.getCategoria() + " " + produto.getComposicao() + " " + produto.getMarca() + " " + produto.getTamanho() + " " + produto.getValor() + " " + produto.getQuantidade());
+                formEditarProduto.setVisible(true);
+                AlterarProduto al = new AlterarProduto();
+                //this.getParent().add(formEditarProduto);
+                this.setLocationRelativeTo(formEditarProduto);
+                //this.openFrameInCenter(formEditarProduto);
                 formEditarProduto.toFront();
             }
         } catch (Exception e) {
@@ -486,7 +496,15 @@ public class Produtos extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_buttonExcluirActionPerformed
-
+    //Abre um internal frame centralizado na tela
+    public void openFrameInCenter(JInternalFrame jif) {
+        Dimension desktopSize = this.getParent().getSize();
+        Dimension jInternalFrameSize = jif.getSize();
+        int width = (desktopSize.width - jInternalFrameSize.width) / 2;
+        int height = (desktopSize.height - jInternalFrameSize.height) / 2;
+        jif.setLocation(width, height);
+        jif.setVisible(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAlterar;
@@ -519,6 +537,10 @@ public class Produtos extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane;
     private javax.swing.JTable tabelaResultados;
     // End of variables declaration//GEN-END:variables
+
+    private void openFrameInCenter(AlterarProduto formEditarProduto) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     
     
