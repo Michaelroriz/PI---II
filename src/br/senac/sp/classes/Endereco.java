@@ -1,4 +1,5 @@
 package br.senac.sp.classes;
+
 import br.senac.sp.exceptions.ClienteException;
 import br.senac.sp.exceptions.EnderecoException;
 
@@ -13,14 +14,25 @@ public class Endereco {
     private String cidade;
     private String estado;
     private String complemento;
+    private String cep;
 
-    public Endereco(String rua, String bairro, String cidade, String estado, String complemento) {
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public Endereco(String rua, String bairro, String cidade, String estado, String complemento, String cep) {
         this.rua = rua;
         this.bairro = bairro;
         this.cidade = cidade;
         this.estado = estado;
         this.complemento = complemento;
     }
+    
+   
 
     Endereco() throws EnderecoException {
         throw new EnderecoException("Não Foi infomado os dados de Endereço correntamente"); //To change body of generated methods, choose Tools | Templates.
