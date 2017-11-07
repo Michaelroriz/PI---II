@@ -10,17 +10,17 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Produtos extends javax.swing.JFrame {
-       
-    
+
+    Produto prod = new Produto();
     //Instância do form de edição de produtos
     AlterarProduto formEditarProduto = new AlterarProduto();
     //Armazena a última pesquisa realizada
     String ultimaPesquisa = null;
-    
+
     public Produtos() {
         initComponents();
-    }    
-    
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -274,34 +274,88 @@ public class Produtos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonConfirmarAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmarAddActionPerformed
-        //Cria uma instância do produto e obtém
-        //seus valores dos campos da tela
-        Produto produto = new Produto();
-        produto.setNome(fieldNomeAdd.getText());
-        int quant = Integer.parseInt(fieldQuantidadeAdd.getText());
-        produto.setQuantidade(quant);
-        float val = Float.parseFloat(fieldValorAdd.getText());
-        produto.setValor(val);
-        produto.setCategoria((String) comboCategoriaAdd.getSelectedItem());
-        produto.setDescricao(fieldDescricaoAdd.getText());
-        produto.setComposicao(fieldComposicaoAdd.getText());
-        produto.setMarca(fieldMarcaAdd.getText());
-        produto.setTamanho(fieldTamanhoAdd.getText());
+        
+        //Inicializa o sucesso da pesquisa com valor negativo, indicando que
+        //a pesquisa de produtos não obteve resultados (situação padrão)
+        boolean resultSearch = false;
+
+        //Grava o campo de pesquisa como a última pesquisa válida. O valor
+        //de última pesquisa válida é utilizado na atualização da lista
+        ultimaPesquisa = fieldPesquisa.getText();
+
         try {
-            //Chama o serviço para cadastro do produto
-            ServiceProduto.cadastrarProduto(produto);
+            //Solicita a atualização da lista com o novo critério
+            //de pesquisa (ultimaPesquisa)
+            resultSearch = refreshList();
         } catch (Exception e) {
-            //Exibe mensagens de erro para o usuário
+            //Exibe mensagens de erro na fonte de dados e para o listener
             JOptionPane.showMessageDialog(rootPane, e.getMessage(),
-                    "Erro", JOptionPane.ERROR_MESSAGE);
+                    "ERRROOOO", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        //Caso tenha chegado até aqui, o produto foi inserido com sucesso
-        //Então exibe uma mensagem de sucesso para o usuário
-        JOptionPane.showMessageDialog(rootPane, "Produto inserido com sucesso",
-                "Cadastro efetuado", JOptionPane.INFORMATION_MESSAGE);
-        
+        //Exibe mensagem de erro caso o produto já esteja cadastrado no sistema
+        //e aumenta a quantidade em estoque de acordo com a quantidade inserida no cadastro
+        if (resultSearch) {
+
+            int resposta = JOptionPane.showConfirmDialog(rootPane,
+                    "Produdo já cadastrado no sistema. Deseja aumentar o estoque do produto cadastrado?",
+                    "", JOptionPane.YES_NO_OPTION);
+            //Se o valor de resposta for "Sim" para a exclusão
+            if (resposta == JOptionPane.YES_OPTION) {
+
+                try {
+                    //****************************************************************************
+                    int quant = Integer.parseInt(fieldQuantidadeAdd.getText());
+                    Produto produto = ServiceProduto.obterProduto(0);
+                    //****************************************************************************
+                    formEditarProduto = new AlterarProduto();
+                    formEditarProduto.setProduto(produto);
+                    produto.setQuantidade(quant + produto.getQuantidade());
+                    formEditarProduto.setName(produto.getNome() + " " + produto.getDescricao() + " " + produto.getCategoria() + " " + produto.getComposicao() + " " + produto.getMarca() + " " + produto.getTamanho() + " " + produto.getValor() + " " + produto.getQuantidade());
+                    //this.getParent().add(formEditarProduto);
+                    //prod.setQuantidade(quant);
+                } catch (Exception e) {
+                    //Se ocorrer algum erro técnico, mostra-o no console,
+                    //mas esconde-o do usuário
+                    e.printStackTrace();
+                    //Exibe uma mensagem de erro genérica ao usuário
+                    JOptionPane.showMessageDialog(rootPane, "Não é possível "
+                            + "aumentar o estoque deste produto.",
+                            "Erro ao abrir detalhe", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else if(!resultSearch){
+            //****************************************************************************
+
+            //Cria uma instância do produto e obtém
+            //seus valores dos campos da tela
+            Produto produto = new Produto();
+            produto.setNome(fieldNomeAdd.getText());
+            int quant = Integer.parseInt(fieldQuantidadeAdd.getText());
+            produto.setQuantidade(quant);
+            float val = Float.parseFloat(fieldValorAdd.getText());
+            produto.setValor(val);
+            produto.setCategoria((String) comboCategoriaAdd.getSelectedItem());
+            produto.setDescricao(fieldDescricaoAdd.getText());
+            produto.setComposicao(fieldComposicaoAdd.getText());
+            produto.setMarca(fieldMarcaAdd.getText());
+            produto.setTamanho(fieldTamanhoAdd.getText());
+            try {
+                //Chama o serviço para cadastro do produto
+                ServiceProduto.cadastrarProduto(produto);
+            } catch (Exception e) {
+                //Exibe mensagens de erro para o usuário
+                JOptionPane.showMessageDialog(rootPane, e.getMessage(),
+                        "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            //Caso tenha chegado até aqui, o produto foi inserido com sucesso
+            //Então exibe uma mensagem de sucesso para o usuário
+            JOptionPane.showMessageDialog(rootPane, "Produto inserido com sucesso",
+                    "Cadastro efetuado", JOptionPane.INFORMATION_MESSAGE);
+        }
         //Limpa os campos da tela após realizar a inserção
         fieldNomeAdd.setText("");
         fieldDescricaoAdd.setText("");
@@ -312,12 +366,12 @@ public class Produtos extends javax.swing.JFrame {
         fieldValorAdd.setText("");
         fieldQuantidadeAdd.setText("");
     }//GEN-LAST:event_buttonConfirmarAddActionPerformed
-    
+
     private void buttonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarActionPerformed
         //Inicializa o sucesso da pesquisa com valor negativo, indicando que
         //a pesquisa de produtos não obteve resultados (situação padrão)
         boolean resultSearch = false;
-        
+
         //Grava o campo de pesquisa como a última pesquisa válida. O valor
         //de última pesquisa válida é utilizado na atualização da lista
         ultimaPesquisa = fieldPesquisa.getText();
@@ -381,15 +435,16 @@ public class Produtos extends javax.swing.JFrame {
         //que não devem ser exibidas mensagens de erro
         return true;
     }
-    private void tabelaResultadosMouseClicked(java.awt.event.MouseEvent evt) {                                              
+
+    private void tabelaResultadosMouseClicked(java.awt.event.MouseEvent evt) {
         //Verifica se o clique é um clique duplo       
         if (evt.getClickCount() == 2) {
-            try {                
+            try {
                 //Obtém a linha selecionada da tabela de resultados
                 final int row = tabelaResultados.getSelectedRow();
                 //Obtém o valor do ID da coluna "ID" da tabela de resultados
                 Integer id = (Integer) tabelaResultados.getValueAt(row, 0);
-                
+
                 //Com o ID da coluna, chama o serviço de produto para
                 //obter o produto com dados atualizados do mock
                 Produto produto = ServiceProduto.obterProduto(id);
@@ -399,12 +454,11 @@ public class Produtos extends javax.swing.JFrame {
                 //ser editado e mostra a tela de edição.
                 //Para exibir a tela, é necessário adicioná-la ao
                 //componente de desktop, o "pai" da janela corrente
-                
-                formEditarProduto.dispose();                
-                formEditarProduto = new AlterarProduto();                
+                formEditarProduto.dispose();
+                formEditarProduto = new AlterarProduto();
                 formEditarProduto.setProduto(produto);
                 formEditarProduto.setTitle(produto.getNome() + " " + produto.getDescricao() + " " + produto.getCategoria() + " " + produto.getComposicao() + " " + produto.getMarca() + " " + produto.getTamanho() + " " + produto.getValor() + " " + produto.getQuantidade());
-                this.getParent().add(formEditarProduto);                 
+                this.getParent().add(formEditarProduto);
                 formEditarProduto.toFront();
             } catch (Exception e) {
                 //Se ocorrer algum erro técnico, mostra-o no console,
@@ -412,12 +466,12 @@ public class Produtos extends javax.swing.JFrame {
                 e.printStackTrace();
                 //Exibe uma mensagem de erro genérica ao usuário
                 JOptionPane.showMessageDialog(rootPane, "Não é possível "
-                    + "exibir os detalhes deste produto.",
-                    "Erro ao abrir detalhe", JOptionPane.ERROR_MESSAGE);
+                        + "exibir os detalhes deste produto.",
+                        "Erro ao abrir detalhe", JOptionPane.ERROR_MESSAGE);
             }
         }
-    } 
-    
+    }
+
     private void buttonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVoltarActionPerformed
         this.dispose();
     }//GEN-LAST:event_buttonVoltarActionPerformed
@@ -430,7 +484,7 @@ public class Produtos extends javax.swing.JFrame {
             if (row >= 0) {
                 //Obtém a linha selecionada na tabela
                 Integer id = (Integer) tabelaResultados.getValueAt(row, 0);
-                
+
                 //Solicita ao serviço a obtenção do cliente a partir do
                 //ID selecionado na tabela
                 Produto produto = ServiceProduto.obterProduto(id);
@@ -440,8 +494,8 @@ public class Produtos extends javax.swing.JFrame {
                 //ser editado e mostra a tela de edição.
                 //Para exibir a tela, é necessário adicioná-la ao
                 //componente de desktop, o "pai" da janela corrente
-                formEditarProduto.dispose();                
-                formEditarProduto = new AlterarProduto();                
+                formEditarProduto.dispose();
+                formEditarProduto = new AlterarProduto();
                 formEditarProduto.setProduto(produto);
                 formEditarProduto.setName(produto.getNome() + " " + produto.getDescricao() + " " + produto.getCategoria() + " " + produto.getComposicao() + " " + produto.getMarca() + " " + produto.getTamanho() + " " + produto.getValor() + " " + produto.getQuantidade());
                 formEditarProduto.setVisible(true);
@@ -457,8 +511,8 @@ public class Produtos extends javax.swing.JFrame {
             e.printStackTrace();
             //Exibe uma mensagem de erro genérica ao usuário
             JOptionPane.showMessageDialog(rootPane, "Não é possível "
-                + "exibir os detalhes deste produto.",
-                "Erro ao abrir detalhe", JOptionPane.ERROR_MESSAGE);
+                    + "exibir os detalhes deste produto.",
+                    "Erro ao abrir detalhe", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_buttonAlterarActionPerformed
 
@@ -466,7 +520,7 @@ public class Produtos extends javax.swing.JFrame {
         //Verifica se há itens selecionados para exclusão.
         //Caso negativo, ignora o comando
         if (tabelaResultados.getSelectedRow() >= 0) {
-            
+
             //Obtém a linha do item selecionado
             final int row = tabelaResultados.getSelectedRow();
             //Obtém o nome do cliente da linha indicada para exibição
@@ -474,8 +528,8 @@ public class Produtos extends javax.swing.JFrame {
             String nome = (String) tabelaResultados.getValueAt(row, 1);
             //Mostra o diálogo de confirmação de exclusão
             int resposta = JOptionPane.showConfirmDialog(rootPane,
-                "Excluir o produto \"" + nome + "\"?",
-                "Confirmar exclusão", JOptionPane.YES_NO_OPTION);
+                    "Excluir o produto \"" + nome + "\"?",
+                    "Confirmar exclusão", JOptionPane.YES_NO_OPTION);
             //Se o valor de resposta for "Sim" para a exclusão
             if (resposta == JOptionPane.YES_OPTION) {
                 try {
@@ -542,6 +596,4 @@ public class Produtos extends javax.swing.JFrame {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
-    
 }
