@@ -5,24 +5,21 @@
  */
 package br.senac.sp.ui;
 
-
-
 /**
  *
- * @author william.sbarreto1
+ * @author WolfDevelloper
  */
 public class Menu extends javax.swing.JFrame {
-    
+
     /**
      * Creates new form Menu
      */
     public Menu() {
-        initComponents();  
-        
+        initComponents();
+
         this.setLocationRelativeTo(null);
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -166,28 +163,28 @@ public class Menu extends javax.swing.JFrame {
     private void buttonProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProdutosActionPerformed
         Produtos produtos = new Produtos();
         produtos.setVisible(true);
-        if(buttonProdutos.isEnabled()){
+        if (buttonProdutos.isEnabled()) {
             produtos.toFront();
         }
     }//GEN-LAST:event_buttonProdutosActionPerformed
 
     private void buttonVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVendasActionPerformed
-        RelatorioVendas rv = new RelatorioVendas();
-        if(buttonRelatorio.isEnabled()){
+        TelaVendas rv = new TelaVendas();
+        if (buttonRelatorio.isEnabled()) {
             rv.setVisible(true);
         }
     }//GEN-LAST:event_buttonVendasActionPerformed
 
     private void buttonClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClientesActionPerformed
-       Clientes cli = new Clientes();
-        if(buttonClientes.isEnabled()){
+        Clientes cli = new Clientes();
+        if (buttonClientes.isEnabled()) {
             cli.setVisible(true);
         }
     }//GEN-LAST:event_buttonClientesActionPerformed
 
     private void buttonRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRelatorioActionPerformed
         RelatorioVendas relVendas = new RelatorioVendas();
-        if(buttonRelatorio.isEnabled()){
+        if (buttonRelatorio.isEnabled()) {
             relVendas.setVisible(true);
         }
     }//GEN-LAST:event_buttonRelatorioActionPerformed
@@ -195,9 +192,8 @@ public class Menu extends javax.swing.JFrame {
     private void buttonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSairActionPerformed
         System.exit(0);
     }//GEN-LAST:event_buttonSairActionPerformed
-    
+
     //Abre um internal frame centralizado na tela
-    
     /**
      * Método de inicialização da classe e do sistema
      */

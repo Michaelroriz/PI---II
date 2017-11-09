@@ -308,7 +308,7 @@ public class Produtos extends javax.swing.JFrame {
                     //****************************************************************************
                     int quant = Integer.parseInt(fieldQuantidadeAdd.getText());
                     final int i = prod.getCodigo();
-                    Integer id = (Integer) prod.getValueAt(i, 0);
+                   // Integer id = (Integer) prod.getValueAt(i, 0);
                     Produto produto = ServiceProduto.obterProduto(0);
                     //****************************************************************************
                     formEditarProduto = new AlterarProduto();
