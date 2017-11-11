@@ -57,6 +57,7 @@ public class AlterarProduto extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Alterar Produto");
 
         buttonConfirmarAlt.setText("Confirmar");
         buttonConfirmarAlt.addActionListener(new java.awt.event.ActionListener() {
@@ -110,7 +111,7 @@ public class AlterarProduto extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Setar dados (temporário)");
+        jButton2.setText("Setar dados");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
