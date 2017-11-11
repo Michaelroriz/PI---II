@@ -73,6 +73,18 @@ public class MockProduto {
                 if (produtoLi != null && produtoLi.getNome() != null) {
                     if (produtoLi.getNome().toUpperCase().contains(valor.toUpperCase())) {
                         listaResultado.add(produtoLi);
+                    }else if(produtoLi.getDescricao().toUpperCase().contains(valor.toUpperCase())){
+                        listaResultado.add(produtoLi);
+                    }else if(produtoLi.getCodigo().toString().contains(valor.toUpperCase())){
+                        listaResultado.add(produtoLi);
+                    }else if(produtoLi.getCategoria().toUpperCase().contains(valor.toUpperCase())){
+                        listaResultado.add(produtoLi);
+                    }else if(produtoLi.getComposicao().toUpperCase().contains(valor.toUpperCase())){
+                        listaResultado.add(produtoLi);
+                    }else if(produtoLi.getMarca().toUpperCase().contains(valor.toUpperCase())){
+                        listaResultado.add(produtoLi);
+                    }else if(produtoLi.getTamanho().toUpperCase().contains(valor.toUpperCase())){
+                        listaResultado.add(produtoLi);
                     }
                 }
             }

@@ -9,8 +9,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class Produtos extends javax.swing.JFrame {
-
+public class Produtos extends javax.swing.JFrame {    
     Produto prod = new Produto();
     //Instância do form de edição de produtos
     AlterarProduto formEditarProduto = new AlterarProduto();
@@ -60,6 +59,7 @@ public class Produtos extends javax.swing.JFrame {
 
         jLabel1.setText("Pesquisar");
 
+        buttonBuscar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         buttonBuscar.setText("Buscar");
         buttonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,14 +67,18 @@ public class Produtos extends javax.swing.JFrame {
             }
         });
 
+        buttonAlterar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         buttonAlterar.setText("Alterar");
+        buttonAlterar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         buttonAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAlterarActionPerformed(evt);
             }
         });
 
+        buttonExcluir.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         buttonExcluir.setText("Excluir");
+        buttonExcluir.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
         buttonExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonExcluirActionPerformed(evt);
@@ -94,6 +98,7 @@ public class Produtos extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tabelaResultados);
 
+        buttonVoltar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         buttonVoltar.setText("Voltar");
         buttonVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,9 +123,9 @@ public class Produtos extends javax.swing.JFrame {
                         .addGap(0, 32, Short.MAX_VALUE)
                         .addGroup(jPanelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanelConsultarLayout.createSequentialGroup()
-                                .addComponent(buttonAlterar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(buttonExcluir)
+                                .addComponent(buttonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(buttonVoltar))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -136,11 +141,11 @@ public class Produtos extends javax.swing.JFrame {
                     .addComponent(buttonBuscar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addGroup(jPanelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonAlterar)
-                    .addComponent(buttonExcluir)
-                    .addComponent(buttonVoltar))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(buttonVoltar)
+                    .addComponent(buttonAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(buttonExcluir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -167,6 +172,7 @@ public class Produtos extends javax.swing.JFrame {
 
         comboCategoriaAdd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cama", "Mesa", "Banho" }));
 
+        buttonConfirmarAdd.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         buttonConfirmarAdd.setText("Confirmar");
         buttonConfirmarAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -274,7 +280,7 @@ public class Produtos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonConfirmarAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmarAddActionPerformed
-        
+
         //Inicializa o sucesso da pesquisa com valor negativo, indicando que
         //a pesquisa de produtos não obteve resultados (situação padrão)
         boolean resultSearch = false;
@@ -282,7 +288,7 @@ public class Produtos extends javax.swing.JFrame {
         //Grava o campo de pesquisa como a última pesquisa válida. O valor
         //de última pesquisa válida é utilizado na atualização da lista
         ultimaPesquisa = fieldPesquisa.getText();
-
+//        int j = 0;
         try {
             //Solicita a atualização da lista com o novo critério
             //de pesquisa (ultimaPesquisa)
@@ -290,44 +296,52 @@ public class Produtos extends javax.swing.JFrame {
         } catch (Exception e) {
             //Exibe mensagens de erro na fonte de dados e para o listener
             JOptionPane.showMessageDialog(rootPane, e.getMessage(),
-                    "ERRROOOO", JOptionPane.ERROR_MESSAGE);
+                    "Falha ao obter lista", JOptionPane.ERROR_MESSAGE);
             return;
-        }
-
-        //Exibe mensagem de erro caso o produto já esteja cadastrado no sistema
-        //e aumenta a quantidade em estoque de acordo com a quantidade inserida no cadastro
-        if (resultSearch) {
-
-            int resposta = JOptionPane.showConfirmDialog(rootPane,
-                    "Produdo já cadastrado no sistema. Deseja aumentar o estoque do produto cadastrado?",
-                    "", JOptionPane.YES_NO_OPTION);
-            //Se o valor de resposta for "Sim" para a exclusão
-            if (resposta == JOptionPane.YES_OPTION) {
-
-                try {
-                    //****************************************************************************
-                    int quant = Integer.parseInt(fieldQuantidadeAdd.getText());
-                    final int i = prod.getCodigo();
-                    Integer id = (Integer) prod.getValueAt(i, 0);
-                    Produto produto = ServiceProduto.obterProduto(0);
-                    //****************************************************************************
-                    formEditarProduto = new AlterarProduto();
-                    formEditarProduto.setProduto(produto);
-                    produto.setQuantidade(quant + produto.getQuantidade());
-                    formEditarProduto.setName(produto.getNome() + " " + produto.getDescricao() + " " + produto.getCategoria() + " " + produto.getComposicao() + " " + produto.getMarca() + " " + produto.getTamanho() + " " + produto.getValor() + " " + produto.getQuantidade());
-                    //this.getParent().add(formEditarProduto);
-                    //prod.setQuantidade(quant);
-                } catch (Exception e) {
-                    //Se ocorrer algum erro técnico, mostra-o no console,
-                    //mas esconde-o do usuário
-                    e.printStackTrace();
-                    //Exibe uma mensagem de erro genérica ao usuário
-                    JOptionPane.showMessageDialog(rootPane, "Não é possível "
-                            + "aumentar o estoque deste produto.",
-                            "Erro ao abrir detalhe", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        }else if(!resultSearch){
+        }       
+//
+//        if (resultSearch && j!=0) {
+//            int resposta = JOptionPane.showConfirmDialog(rootPane,
+//                    "Produdo já cadastrado no sistema. Deseja aumentar o estoque do produto cadastrado?",
+//                    "Aviso", JOptionPane.YES_NO_OPTION);
+//            //Se o valor de resposta for "Sim" para a exclusão
+//            if (resposta == JOptionPane.YES_OPTION) {
+//
+//                try {
+//                    //****************************************************************************
+//                    int quant = Integer.parseInt(fieldQuantidadeAdd.getText());
+//                    List<Produto> resultado = ServiceProduto.
+//                procurarProduto(ultimaPesquisa);
+//                    
+//                    Produto produto = ServiceProduto.obterProduto(prod.getCodigo());
+//                    //****************************************************************************
+//                    formEditarProduto = new AlterarProduto();
+//                    formEditarProduto.setProduto(produto);
+//                    produto.setQuantidade(quant + produto.getQuantidade());
+//                    //formEditarProduto.setName(produto.getNome() + " " + produto.getDescricao() + " " + produto.getCategoria() + " " + produto.getComposicao() + " " + produto.getMarca() + " " + produto.getTamanho() + " " + produto.getValor() + " " + produto.getQuantidade());
+//                    //this.getParent().add(formEditarProduto);
+//                    //prod.setQuantidade(quant);
+//                } catch (Exception e) {
+//                    //Se ocorrer algum erro técnico, mostra-o no console,
+//                    //mas esconde-o do usuário
+//                    e.printStackTrace();
+//                    //Exibe uma mensagem de erro genérica ao usuário
+//                    JOptionPane.showMessageDialog(rootPane, "Não é possível "
+//                            + "aumentar o estoque deste produto.",
+//                            "Erro ao abrir detalhe", JOptionPane.ERROR_MESSAGE);
+//                }
+//            } else {
+//                //Limpa os campos da tela após realizar a inserção
+//                fieldNomeAdd.setText("");
+//                fieldDescricaoAdd.setText("");
+//                comboCategoriaAdd.setSelectedIndex(0);
+//                fieldComposicaoAdd.setText("");
+//                fieldMarcaAdd.setText("");
+//                fieldTamanhoAdd.setText("");
+//                fieldValorAdd.setText("");
+//                fieldQuantidadeAdd.setText("");
+//            }
+//        } else {
             //****************************************************************************
 
             //Cria uma instância do produto e obtém
@@ -343,6 +357,7 @@ public class Produtos extends javax.swing.JFrame {
             produto.setComposicao(fieldComposicaoAdd.getText());
             produto.setMarca(fieldMarcaAdd.getText());
             produto.setTamanho(fieldTamanhoAdd.getText());
+                        
             try {
                 //Chama o serviço para cadastro do produto
                 ServiceProduto.cadastrarProduto(produto);
@@ -352,12 +367,12 @@ public class Produtos extends javax.swing.JFrame {
                         "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
+//            j++;
             //Caso tenha chegado até aqui, o produto foi inserido com sucesso
             //Então exibe uma mensagem de sucesso para o usuário
             JOptionPane.showMessageDialog(rootPane, "Produto inserido com sucesso",
                     "Cadastro efetuado", JOptionPane.INFORMATION_MESSAGE);
-        }
+        
         //Limpa os campos da tela após realizar a inserção
         fieldNomeAdd.setText("");
         fieldDescricaoAdd.setText("");
@@ -366,7 +381,7 @@ public class Produtos extends javax.swing.JFrame {
         fieldMarcaAdd.setText("");
         fieldTamanhoAdd.setText("");
         fieldValorAdd.setText("");
-        fieldQuantidadeAdd.setText("");
+        fieldQuantidadeAdd.setText("");        
     }//GEN-LAST:event_buttonConfirmarAddActionPerformed
 
     private void buttonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarActionPerformed
@@ -594,8 +609,8 @@ public class Produtos extends javax.swing.JFrame {
     private javax.swing.JTable tabelaResultados;
     // End of variables declaration//GEN-END:variables
 
-    private void openFrameInCenter(AlterarProduto formEditarProduto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    private void openFrameInCenter(AlterarProduto formEditarProduto) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 
 }

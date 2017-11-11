@@ -16,7 +16,7 @@ public class AlterarProduto extends javax.swing.JFrame {
     
     public AlterarProduto() {
         initComponents();
-        formFrameOpened();
+        setarDados();
     }
      public Produto getProduto() {
         return produto;
@@ -328,4 +328,8 @@ public class AlterarProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanelAlterar1;
     // End of variables declaration//GEN-END:variables
+
+    private void setarDados() {
+        formFrameOpened();
+    }
 }

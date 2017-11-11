@@ -5,6 +5,19 @@
  */
 package br.senac.sp.ui;
 
+import br.senac.sp.classes.Cliente;
+import br.senac.sp.classes.Produto;
+import br.senac.sp.classes.Venda;
+import br.senac.sp.exceptions.ClienteException;
+import br.senac.sp.exceptions.ProdutoException;
+import br.senac.sp.exceptions.VendaException;
+import br.senac.sp.servicos.ServiceProduto;
+import br.senac.sp.servicos.ServiceVenda;
+import br.senac.sp.servicos.ServicoCliente;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author william.sbarreto1
@@ -14,8 +27,14 @@ public class TelaVendas extends javax.swing.JFrame {
     /**
      * Creates new form TelaVendas
      */
+    String ultimaPesquisaCli = null;
+    String ultimaPesquisaPro = null;
+    
+    Cliente cli = new Cliente();
     public TelaVendas() {
         initComponents();
+        
+        updateTabelaProdutos();
     }
 
     /**
@@ -29,20 +48,21 @@ public class TelaVendas extends javax.swing.JFrame {
 
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        buttonCancelar = new javax.swing.JButton();
+        buttonConfirmarCompra = new javax.swing.JButton();
+        textFieldBuscaCliente = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        buttonBuscarCliente = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tabelaResultados = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        tabelaProdutos = new javax.swing.JTable();
+        buttonAdd = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        tableCliente = new javax.swing.JTable();
+        buttonUpdate = new javax.swing.JButton();
+        textProducts = new javax.swing.JTextField();
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -58,38 +78,46 @@ public class TelaVendas extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jTable3);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Venda");
 
-        jButton4.setText("Cancelar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        buttonCancelar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        buttonCancelar.setText("Cancelar");
+        buttonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                buttonCancelarActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Finalizar Compra");
-        jButton5.setToolTipText("");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        buttonConfirmarCompra.setBackground(new java.awt.Color(255, 255, 255));
+        buttonConfirmarCompra.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        buttonConfirmarCompra.setText("Finalizar Compra");
+        buttonConfirmarCompra.setToolTipText("");
+        buttonConfirmarCompra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
+        buttonConfirmarCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                buttonConfirmarCompraActionPerformed(evt);
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel4.setText("Vendas");
-
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        textFieldBuscaCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                textFieldBuscaClienteActionPerformed(evt);
             }
         });
 
         jLabel2.setText("Cliente");
 
-        jButton1.setText("Buscar");
+        buttonBuscarCliente.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        buttonBuscarCliente.setText("Buscar");
+        buttonBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBuscarClienteActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Produtos");
 
-        tabelaResultados.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
@@ -100,9 +128,13 @@ public class TelaVendas extends javax.swing.JFrame {
                 "Código", "Nome", "Descrição", "Categoria", "Composição", "Marca", "Tamanho", "Valor", "Quantidade"
             }
         ));
-        jScrollPane2.setViewportView(tabelaResultados);
+        jScrollPane2.setViewportView(tabelaProdutos);
 
-        jButton2.setText("Adicionar");
+        buttonAdd.setBackground(new java.awt.Color(255, 255, 255));
+        buttonAdd.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        buttonAdd.setForeground(new java.awt.Color(255, 0, 0));
+        buttonAdd.setText("Adicionar");
+        buttonAdd.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,126 +142,318 @@ public class TelaVendas extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Insira o Nome ,Id ou CPF do Cliente");
+        jLabel5.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        jLabel5.setText("* Insira o id, nome ou CPF do Cliente");
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        tableCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Id", "Nome", "CPF"
+                "Id", "Nome", "Sobrenome", "CPF"
             }
         ));
-        jScrollPane6.setViewportView(jTable4);
+        jScrollPane6.setViewportView(tableCliente);
+
+        buttonUpdate.setText("Atualizar lista de produtos");
+        buttonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUpdateActionPerformed(evt);
+            }
+        });
+
+        textProducts.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(40, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton4)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(140, 140, 140))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField1))))
-                            .addComponent(jLabel1)
-                            .addComponent(jScrollPane2)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton1))
-                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(buttonCancelar)
+                        .addGap(387, 387, 387)
+                        .addComponent(buttonConfirmarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(buttonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(277, 277, 277)
-                        .addComponent(jLabel4)))
-                .addGap(0, 33, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(textProducts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonUpdate))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(textFieldBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(buttonBuscarCliente))))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(textFieldBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonBuscarCliente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(buttonUpdate)
+                    .addComponent(textProducts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
-                .addContainerGap())
+                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                    .addComponent(buttonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonCancelar)
+                    .addComponent(buttonConfirmarCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void buttonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_buttonCancelarActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void buttonConfirmarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmarCompraActionPerformed
+        TelaFinalizacaoDeCompra finalVendas = new TelaFinalizacaoDeCompra();
+        if(buttonConfirmarCompra.isEnabled()){
+            finalVendas.setVisible(true);
+        }
+    }//GEN-LAST:event_buttonConfirmarCompraActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void textFieldBuscaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldBuscaClienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_textFieldBuscaClienteActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    
+    private void buttonBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarClienteActionPerformed
+        //Inicializa o sucesso da pesquisa com valor negativo, indicando que
+        //a pesquisa de vendas não obteve resultados (situação padrão)
+        
+        boolean resultSearch = false;
 
+        //Grava o campo de pesquisa como a última pesquisa válida. O valor
+        //de última pesquisa válida é utilizado na atualização da lista
+        ultimaPesquisaCli = textFieldBuscaCliente.getText();
+
+        try {
+            //Solicita a atualização da lista com o novo critério
+            //de pesquisa (ultimaPesquisa)
+            resultSearch = refreshListCliente();
+        } catch (Exception e) {
+            //Exibe mensagens de erro na fonte de dados e para o listener
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(),
+                    "Falha ao obter lista", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        //Exibe mensagem de erro caso a pesquisa não tenha resultados
+        if (!resultSearch) {
+            JOptionPane.showMessageDialog(rootPane, "A pesquisa não retornou resultados ",
+                    "Sem resultados", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_buttonBuscarClienteActionPerformed
+
+    private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonUpdateActionPerformed
+
+    //Atualiza a lista de clientes. Pode ser chamado por outras telas
+    public boolean refreshListCliente() throws ClienteException, Exception {
+        //Realiza a pesquisa de vendas com o último valor de pesquisa
+        //para atualizar a lista
+        List<Cliente> resultado = ServicoCliente.
+                procurarCliente(ultimaPesquisaCli);
+
+        //Obtém o elemento representante do conteúdo da tabela na tela
+        DefaultTableModel model = (DefaultTableModel) tableCliente.getModel();
+        //Indica que a tabela deve excluir todos seus elementos
+        //Isto limpará a lista, mesmo que a pesquisa não tenha sucesso
+        model.setRowCount(0);
+
+        //Verifica se não existiram resultados. Caso afirmativo, encerra a
+        //atualização e indica ao elemento acionador o não sucesso da pesquisa
+        if (resultado == null || resultado.size() <= 0) {
+            return false;
+        }
+
+        //Percorre a lista de resultados e os adiciona na tabela
+        for (int i = 0; i < resultado.size(); i++) {
+            Cliente cli = resultado.get(i);
+            if (cli != null) {
+                Object[] row = new Object[4];
+                row[0] = cli.getId();
+                row[1] = cli.getNome();
+                row[2] = cli.getSobrenome();
+                row[3] = cli.getCpf();                
+                model.addRow(row);
+            }
+        }
+
+        //Se chegamos até aqui, a pesquisa teve sucesso, então
+        //retornamos "true" para o elemento acionante, indicando
+        //que não devem ser exibidas mensagens de erro
+        return true;
+    }
+    private void tableClienteMouseClicked(java.awt.event.MouseEvent evt) {
+        //Verifica se o clique é um clique duplo       
+        if (evt.getClickCount() == 2) {
+            try {
+                //Obtém a linha selecionada da tabela de resultados
+                final int row = tableCliente.getSelectedRow();
+                //Obtém o valor do ID da coluna "ID" da tabela de resultados
+                Integer id = (Integer) tableCliente.getValueAt(row, 0);
+
+                //Com o ID da coluna, chama o serviço de produto para
+                //obter o produto com dados atualizados do mock
+                Cliente cliente = ServicoCliente.obterCliente(id);
+                
+            } catch (Exception e) {
+                //Se ocorrer algum erro técnico, mostra-o no console,
+                //mas esconde-o do usuário
+                e.printStackTrace();
+                //Exibe uma mensagem de erro genérica ao usuário
+                JOptionPane.showMessageDialog(rootPane, "Não é possível "
+                        + "exibir os detalhes deste cliente.",
+                        "Erro ao abrir detalhe", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton buttonAdd;
+    private javax.swing.JButton buttonBuscarCliente;
+    private javax.swing.JButton buttonCancelar;
+    private javax.swing.JButton buttonConfirmarCompra;
+    private javax.swing.JButton buttonUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTable tabelaResultados;
+    private javax.swing.JTable tabelaProdutos;
+    private javax.swing.JTable tableCliente;
+    private javax.swing.JTextField textFieldBuscaCliente;
+    private javax.swing.JTextField textProducts;
     // End of variables declaration//GEN-END:variables
+
+    private void updateTabelaProdutos() {
+        boolean resultSearch = false;
+
+        //Grava o campo de pesquisa como a última pesquisa válida. O valor
+        //de última pesquisa válida é utilizado na atualização da lista
+        ultimaPesquisaPro = textProducts.getText();
+
+        try {
+            //Solicita a atualização da lista com o novo critério
+            //de pesquisa (ultimaPesquisa)
+            resultSearch = refreshListProdutos();
+        } catch (Exception e) {
+            //Exibe mensagens de erro na fonte de dados e para o listener
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(),
+                    "Falha ao obter lista", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        //Exibe mensagem de erro caso a pesquisa não tenha resultados
+        if (!resultSearch) {
+            JOptionPane.showMessageDialog(rootPane, "A pesquisa não retornou resultados ",
+                    "Sem resultados", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    public boolean refreshListProdutos() throws ProdutoException, Exception {
+        //Realiza a pesquisa de vendas com o último valor de pesquisa
+        //para atualizar a lista
+        List<Produto> resultado = ServiceProduto.
+                procurarProduto(ultimaPesquisaPro);
+
+        //Obtém o elemento representante do conteúdo da tabela na tela
+        DefaultTableModel model = (DefaultTableModel) tabelaProdutos.getModel();
+        //Indica que a tabela deve excluir todos seus elementos
+        //Isto limpará a lista, mesmo que a pesquisa não tenha sucesso
+        model.setRowCount(0);
+
+        //Verifica se não existiram resultados. Caso afirmativo, encerra a
+        //atualização e indica ao elemento acionador o não sucesso da pesquisa
+        if (resultado == null || resultado.size() <= 0) {
+            return false;
+        }
+
+        //Percorre a lista de resultados e os adiciona na tabela
+        for (int i = 0; i < resultado.size(); i++) {
+            Produto pro = resultado.get(i);
+            if (pro != null) {
+                Object[] row = new Object[9];
+                row[0] = pro.getCodigo();
+                row[1] = pro.getNome();
+                row[2] = pro.getDescricao();
+                row[3] = pro.getCategoria();
+                row[4] = pro.getComposicao();
+                row[5] = pro.getMarca();
+                row[6] = pro.getTamanho();
+                row[7] = pro.getValor();
+                row[8] = pro.getQuantidade();
+                model.addRow(row);
+            }
+        }
+
+        //Se chegamos até aqui, a pesquisa teve sucesso, então
+        //retornamos "true" para o elemento acionante, indicando
+        //que não devem ser exibidas mensagens de erro
+        return true;
+    }
+    private void tableProdutoMouseClicked(java.awt.event.MouseEvent evt) {
+        //Verifica se o clique é um clique duplo       
+        if (evt.getClickCount() == 2) {
+            try {
+                //Obtém a linha selecionada da tabela de resultados
+                final int row = tabelaProdutos.getSelectedRow();
+                //Obtém o valor do ID da coluna "ID" da tabela de resultados
+                Integer id = (Integer) tabelaProdutos.getValueAt(row, 0);
+
+                //Com o ID da coluna, chama o serviço de produto para
+                //obter o produto com dados atualizados do mock
+                Produto produto = ServiceProduto.obterProduto(id);
+                
+            } catch (Exception e) {
+                //Se ocorrer algum erro técnico, mostra-o no console,
+                //mas esconde-o do usuário
+                e.printStackTrace();
+                //Exibe uma mensagem de erro genérica ao usuário
+                JOptionPane.showMessageDialog(rootPane, "Não é possível "
+                        + "exibir os detalhes deste produto.",
+                        "Erro ao abrir detalhe", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
 }

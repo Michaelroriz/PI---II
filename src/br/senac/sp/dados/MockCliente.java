@@ -98,7 +98,11 @@ public class MockCliente {
             for (Cliente clienteLi : listaClientes) {
                 if (clienteLi != null && clienteLi.getNome() != null
                         && clienteLi.getSobrenome() != null) {
-                    if (clienteLi.getNome().toUpperCase().contains(nome.toUpperCase()) || clienteLi.getSobrenome().toUpperCase().contains(nome.toUpperCase())) {
+                    if (clienteLi.getNome().toUpperCase().contains(nome.toUpperCase())) {
+                        listaResultado.add(clienteLi);
+                    }else if(clienteLi.getSobrenome().toUpperCase().contains(nome.toUpperCase())){
+                        listaResultado.add(clienteLi);
+                    }else if(clienteLi.getCpf().toUpperCase().contains(nome.toUpperCase())){
                         listaResultado.add(clienteLi);
                     }
                 }
