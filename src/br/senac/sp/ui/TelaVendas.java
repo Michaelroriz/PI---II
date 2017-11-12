@@ -90,7 +90,7 @@ public class TelaVendas extends javax.swing.JFrame {
 
         buttonConfirmarCompra.setBackground(new java.awt.Color(255, 255, 255));
         buttonConfirmarCompra.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        buttonConfirmarCompra.setText("Finalizar Compra");
+        buttonConfirmarCompra.setText("Confirmar");
         buttonConfirmarCompra.setToolTipText("");
         buttonConfirmarCompra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         buttonConfirmarCompra.addActionListener(new java.awt.event.ActionListener() {
