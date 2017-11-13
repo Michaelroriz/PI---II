@@ -110,9 +110,9 @@
                                       <Component id="data_nasc" alignment="0" max="32767" attributes="0"/>
                                       <Component id="combo_estado" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="1" attributes="0">
-                                          <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="voltarTelaUm" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                                          <Component id="buttonIncluirCliente" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="txt_cidade" alignment="0" max="32767" attributes="0"/>
                                       <Component id="txt_cep" alignment="0" max="32767" attributes="0"/>
@@ -186,8 +186,8 @@
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="voltarTelaUm" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonIncluirCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
                       </Group>
@@ -212,12 +212,12 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txt_cpf">
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton4">
+                <Component class="javax.swing.JButton" name="buttonIncluirCliente">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Incluir "/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonIncluirClienteActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel4">
@@ -248,12 +248,12 @@
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton2">
+                <Component class="javax.swing.JButton" name="voltarTelaUm">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Voltar"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="voltarTelaUmActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txt_cep">
@@ -399,9 +399,9 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="10" pref="458" max="32767" attributes="0"/>
-                                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="button_buscar" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="txt_dadoCliente" max="32767" attributes="0"/>
+                                  <Component id="txt_pesquisa" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -424,10 +424,10 @@
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_dadoCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_pesquisa" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="button_buscar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="17" max="32767" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="352" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -446,7 +446,7 @@
                 <Property name="text" type="java.lang.String" value="Cliente:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txt_dadoCliente">
+            <Component class="javax.swing.JTextField" name="txt_pesquisa">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel14">
               <Properties>
@@ -460,14 +460,13 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="TabelaConsultaCliente">
+                <Component class="javax.swing.JTable" name="tabelaResultado">
                   <Properties>
                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="7" rowCount="4">
+                      <Table columnCount="6" rowCount="4">
                         <Column editable="true" title="Nome" type="java.lang.Object"/>
                         <Column editable="true" title="Sobrenome" type="java.lang.Object"/>
-                        <Column editable="true" title="Codigo" type="java.lang.Object"/>
                         <Column editable="true" title="Data de Nascimento" type="java.lang.Object"/>
                         <Column editable="true" title="Genero" type="java.lang.Object"/>
                         <Column editable="true" title="Endereco" type="java.lang.Object"/>
@@ -482,11 +481,6 @@
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -530,12 +524,12 @@
                 <Property name="text" type="java.lang.String" value="Alterar"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="button_buscar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Buscar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_buscarActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
