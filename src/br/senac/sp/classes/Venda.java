@@ -1,6 +1,6 @@
 package br.senac.sp.classes;
 
-import br.senac.sp.classes.Endereco;
+
 import br.senac.sp.classes.Cliente;
 import br.senac.sp.classes.Produto;
 import java.util.Date;
@@ -8,8 +8,7 @@ import java.util.Date;
 public class Venda {
     private Integer codigo;
     private Date data;
-    private Endereco endereco;
-    private Cliente cliente; 
+   private Cliente cliente; 
     private Produto produto; 
 
     public Integer getCodigo() {
@@ -27,15 +26,7 @@ public class Venda {
     public void setData(Date data) {
         this.data = data;
     }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
+    
     public Cliente getCliente() {
         return cliente;
     }

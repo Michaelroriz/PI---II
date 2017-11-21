@@ -1,6 +1,5 @@
 package br.senac.sp.classes;
 
-import br.senac.sp.classes.Endereco;
 import java.util.Date;
 //Classe de negócio de cliente
 
@@ -12,8 +11,13 @@ public class Cliente {
     private String sobrenome;
     private Date dataNascimento;
     private String genero;
-    private Endereco endereco;
     private String cpf;
+    private String rua;
+    private String bairro;
+    private String cidade;
+    private String estado;
+    private String complemento;
+    private String cep;
 
     //Métodos de acesso
     public Integer getId() {
@@ -22,6 +26,54 @@ public class Cliente {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getRua() {
+        return rua;
+    }
+
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
     public String getNome() {
@@ -64,13 +116,17 @@ public class Cliente {
         return cpf;
     }
 
-    // endereco cliente recebe um objeto endereco
-    public void setEndereco(Endereco end) {
-        this.endereco = end;
-
+    public void setEndereco(String rua, String bairro, String cidade, String estado, String complemento, String cep) {
+        this.rua = rua;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.complemento = complemento;
+        this.cep = cep;
     }
+  
 
-    public Endereco getEndereco() {
-        return endereco;
+    public void setVisible(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

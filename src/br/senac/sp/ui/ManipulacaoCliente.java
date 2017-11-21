@@ -1,39 +1,36 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.senac.sp.ui;
 
 import br.senac.sp.classes.Cliente;
-import br.senac.sp.classes.Endereco;
 import br.senac.sp.dados.MockCliente;
 import br.senac.sp.exceptions.ClienteException;
-import br.senac.sp.exceptions.DataSourceException;
 import br.senac.sp.servicos.ServicoCliente;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Michael
+ * @author WolfDevelloper
  */
-public class ManipulacaoClientes extends javax.swing.JFrame {
+public class ManipulacaoCliente extends javax.swing.JInternalFrame {
+
+    //Instanca do form de edição de clientes
+    TelaEditarCliente formEditarCliente = new TelaEditarCliente();
+
+    //Armazena a ultima pesquisa realizada
+    String ultimaPesquisa = null;
 
     /**
      * Tela de manupulação de Clientes
      */
-    String ultimaPesquisa = null;
-
-    public ManipulacaoClientes() {
+    public ManipulacaoCliente() {
         initComponents();
     }
 
-    // Código Gerado do GuiBuilder
+    // Código gerado pelo GuiBuilder
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -75,21 +72,11 @@ public class ManipulacaoClientes extends javax.swing.JFrame {
         excluir_Cli = new javax.swing.JButton();
         alterar_Cli = new javax.swing.JButton();
         button_buscar = new javax.swing.JButton();
+        voltar_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         txt_Rua.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        txt_Rua.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_RuaActionPerformed(evt);
-            }
-        });
-
-        txt_bairro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_bairroActionPerformed(evt);
-            }
-        });
 
         buttonIncluirCliente.setText("Incluir ");
         buttonIncluirCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -101,17 +88,6 @@ public class ManipulacaoClientes extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setText("Cadastro De Cliente");
 
-        txt_nome.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txt_nomeMouseClicked(evt);
-            }
-        });
-        txt_nome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_nomeActionPerformed(evt);
-            }
-        });
-
         combo_genero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Feminino", " " }));
 
         voltarTelaUm.setText("Voltar");
@@ -122,11 +98,6 @@ public class ManipulacaoClientes extends javax.swing.JFrame {
         });
 
         combo_estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "AC\t ", "AL\t ", "AP\t ", "AM\t ", "BA\t ", "CE\t ", "DF\t ", "ES\t ", "GO\t ", "MA\t ", "MT\t ", "MS\t ", "MG\t ", "PA\t ", "PB\t ", "PR\t ", "PE\t ", "PI\t ", "RJ\t ", "RN", "RS\t ", "RO\t ", "RR\t ", "SC\t ", "SP\t ", "SE\t ", "TO" }));
-        combo_estado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                combo_estadoActionPerformed(evt);
-            }
-        });
 
         data_nasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         data_nasc.setText("Data de Nascimento");
@@ -276,15 +247,17 @@ public class ManipulacaoClientes extends javax.swing.JFrame {
         tabelaResultado.setAutoCreateRowSorter(true);
         tabelaResultado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Nome", "Sobrenome", "Data de Nascimento", "Genero", "Endereco", "CPF"
             }
         ));
+        tabelaResultado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaResultadoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelaResultado);
         if (tabelaResultado.getColumnModel().getColumnCount() > 0) {
             tabelaResultado.getColumnModel().getColumn(1).setResizable(false);
@@ -293,11 +266,23 @@ public class ManipulacaoClientes extends javax.swing.JFrame {
         excluir_Cli.setText("Excluir");
 
         alterar_Cli.setText("Alterar");
+        alterar_Cli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alterar_CliActionPerformed(evt);
+            }
+        });
 
         button_buscar.setText("Buscar");
         button_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button_buscarActionPerformed(evt);
+            }
+        });
+
+        voltar_button.setText("Voltar");
+        voltar_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltar_buttonActionPerformed(evt);
             }
         });
 
@@ -308,6 +293,13 @@ public class ManipulacaoClientes extends javax.swing.JFrame {
             .addGroup(Consultar_CliLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(Consultar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Consultar_CliLayout.createSequentialGroup()
+                        .addComponent(voltar_button)
+                        .addGap(89, 89, 89)
+                        .addComponent(alterar_Cli)
+                        .addGap(119, 119, 119)
+                        .addComponent(excluir_Cli)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1)
                     .addGroup(Consultar_CliLayout.createSequentialGroup()
                         .addComponent(jLabel13)
@@ -321,12 +313,6 @@ public class ManipulacaoClientes extends javax.swing.JFrame {
                                 .addComponent(button_buscar))
                             .addComponent(txt_pesquisa))))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Consultar_CliLayout.createSequentialGroup()
-                .addGap(186, 186, 186)
-                .addComponent(alterar_Cli)
-                .addGap(119, 119, 119)
-                .addComponent(excluir_Cli)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Consultar_CliLayout.setVerticalGroup(
             Consultar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -344,7 +330,8 @@ public class ManipulacaoClientes extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Consultar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(excluir_Cli)
-                    .addComponent(alterar_Cli))
+                    .addComponent(alterar_Cli)
+                    .addComponent(voltar_button))
                 .addGap(64, 64, 64))
         );
 
@@ -369,36 +356,24 @@ public class ManipulacaoClientes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void combo_estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_estadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_combo_estadoActionPerformed
-
     private void voltarTelaUmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarTelaUmActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_voltarTelaUmActionPerformed
-
-    private void txt_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_nomeActionPerformed
-
-    private void txt_nomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_nomeMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_nomeMouseClicked
 
     private void buttonIncluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIncluirClienteActionPerformed
         // TODO add your handling code here:
 
         Cliente cliente = new Cliente();
-        Endereco end = new Endereco(txt_Rua.getText(), txt_bairro.getText(), txt_cidade.getText(), combo_estado.getName(), txt_complemento.getText(), txt_cep.getText());
+        cliente.setEndereco(txt_Rua.getText(), txt_bairro.getText(), txt_cidade.getText(), (String) combo_estado.getSelectedItem(), txt_complemento.getText(), txt_cep.getText());
         cliente.setNome(txt_nome.getText());
         cliente.setSobrenome(txt_sobrenome.getText());
         cliente.setDataNascimento((Date) data_nasc.getValue());
-        cliente.setGenero(combo_genero.getName());
-        cliente.setEndereco(end);
+        cliente.setGenero((String) combo_genero.getSelectedItem());
+
         try {
             MockCliente.inserir(cliente);
         } catch (Exception ex) {
-            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("ERRO Ao Inserir cliente na lista de dados");
         }
 
         //Caso tenha chegado até aqui, o produto foi inserido com sucesso
@@ -407,14 +382,6 @@ public class ManipulacaoClientes extends javax.swing.JFrame {
                 "Cadastro efetuado", JOptionPane.INFORMATION_MESSAGE);
 
     }//GEN-LAST:event_buttonIncluirClienteActionPerformed
-
-    private void txt_bairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_bairroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_bairroActionPerformed
-
-    private void txt_RuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_RuaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_RuaActionPerformed
 
     public boolean ehInteiro(String s) {
         // cria um array de char
@@ -440,6 +407,7 @@ public class ManipulacaoClientes extends javax.swing.JFrame {
         ultimaPesquisa = txt_pesquisa.getText();
         try {
             // Solicita a atualização da lista com o novo critério de pesquisa (Ultima Pesquisa)
+            resultadoPesquisa = refreshList();
         } catch (Exception e) {
             // Exibe mensagens de erro na fonter de dados e para o listener
             JOptionPane.showMessageDialog(rootPane, e.getMessage(),
@@ -456,35 +424,85 @@ public class ManipulacaoClientes extends javax.swing.JFrame {
 
     // Atualiza a lista de clientes. Pode ser chamado por outras telas
     public boolean refreshList() throws ClienteException, Exception {
-        // Reakuza a pesquisa de clientes com o último valor de pesquisa para atualizar a lista
+        // Realiza a pesquisa de clientes com o último valor de pesquisa para atualizar a lista
         List<Cliente> resultado = ServicoCliente.procurarCliente(ultimaPesquisa);
         // Obtem o elemento representante do conteúdo da tabela na tela
         DefaultTableModel model = (DefaultTableModel) tabelaResultado.getModel();
         // Indica que a tabela deve excluir todos os seus elementos isso limpara a lista mesmo que a pesquisa não tenha sucesso
+        model.setRowCount(0);
+        //Verifica se não existiram resultados. Caso afirmativo, encerra a
+        //atualização e indica ao elemento acionador o não sucesso da pesquisa
         if (resultado == null || resultado.size() <= 00) {
             return false;
         }
-        
+
         //  Percorre a lista de resultados e os adiciona na tabela
-        for(int i = 0; i < resultado.size(); i++){
-        
-        Cliente cli = resultado.get(i);
-        if (cli !=null){
-        Object [] row = new Object[7];
-            row[0] = cli.getNome();
-            row[1] = cli.getSobrenome();
-            row[2] = cli.getDataNascimento();
-            row[3] = cli.getGenero();
-            row[4] = cli.getEndereco();
-            row[5] = cli.getCpf();
-            model.addRow(row);
-        }
-        
+        for (int i = 0; i < resultado.size(); i++) {
+            Cliente cli = resultado.get(i);
+            if (cli != null) {
+                Object[] row = new Object[7];
+                row[0] = cli.getNome();
+                row[1] = cli.getSobrenome();
+                row[2] = cli.getDataNascimento();
+                row[3] = cli.getGenero();
+                row[4] = "Rua: " + cli.getRua() + " Bairro" + cli.getBairro() + " CEP:" + cli.getCep() + " Cidade:" + cli.getCidade() + " Estado:" + cli.getEstado() + " Complemento:" + cli.getComplemento();
+                row[5] = cli.getCpf();
+                model.addRow(row);
+            }
+
         }
         // Se chegamos até aqui, a pesquisa teve sucsso , então retrornamos true
-return true;
+        return true;
+
 
     }//GEN-LAST:event_button_buscarActionPerformed
+
+    private void voltar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltar_buttonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_voltar_buttonActionPerformed
+
+    private void tabelaResultadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaResultadoMouseClicked
+        //Verifica se o clique é um clique duplo
+        if (evt.getClickCount() == 2) {
+            try {
+                // Obtém a linha selecionada da tabela de resultados
+                final int row = tabelaResultado.getSelectedRow();
+                // Obtém o valor do ID da coluna "ID" da tabela de resultados
+                int id = (int) tabelaResultado.getValueAt(row, 0);
+                //Com o ID da coluna, chama o serviço de cliente para obter o cliente com dados atualizados do banco
+                Cliente cli = ServicoCliente.obterCliente(id);
+
+                //Cria uma nova instancia da tela de edição, cofigura o cliente selecionado como elemento a ser editado e mostra a tela de edição.
+                // para exibir a tela énecessário adiciona-lá ao componente de desktop, o "PAI" da janela corrente
+                formEditarCliente.dispose();
+                formEditarCliente = new TelaEditarCliente();
+                formEditarCliente.setCliente(cli);
+            //colocar alguns codigos
+                 this.getParent().add(formEditarCliente);
+               
+                formEditarCliente.toFront();
+            } catch (Exception e) {
+                // Se ocorrer algum erro técnico, mostra-o no console, mas esconde do usuário
+                e.printStackTrace();
+                //Exibe uma menssagem de erro genérica ao usuário
+                JOptionPane.showInternalMessageDialog(rootPane, "Não é possivel" + "Exibir os detalhes deste cliente.", "Erro ao abrir detalhe", JOptionPane.ERROR_MESSAGE);
+
+            }
+        }
+
+    }//GEN-LAST:event_tabelaResultadoMouseClicked
+
+    private void alterar_CliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterar_CliActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_alterar_CliActionPerformed
+
+    public JPanel getConsultar_Cli() {
+        return Consultar_Cli;
+    }
+
+    public void setConsultar_Cli(JPanel Consultar_Cli) {
+        this.Consultar_Cli = Consultar_Cli;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -525,5 +543,6 @@ return true;
     private javax.swing.JTextField txt_pesquisa;
     private javax.swing.JTextField txt_sobrenome;
     private javax.swing.JButton voltarTelaUm;
+    private javax.swing.JButton voltar_button;
     // End of variables declaration//GEN-END:variables
 }

@@ -18,10 +18,7 @@ public class ValidadorVenda {
             throw new VendaException("É necessário informar "
                     + "o(s) produto(s) da venda");
         }
-        if (venda.getEndereco()== null || "".equals(venda.getEndereco())) {
-            throw new VendaException("É necessário informar "
-                    + "o endereço do cliente que realizou a venda");
-        }        
+                
 
     }
 }

@@ -66,7 +66,7 @@ public class MockVenda {
         if (nome != null && !listaVendas.isEmpty()) {
             for (Venda VendaLi : listaVendas) {
                 if (VendaLi != null && VendaLi.getCliente() != null
-                        && VendaLi.getData() != null && VendaLi.getEndereco() != null && VendaLi.getProduto() != null) {
+                        && VendaLi.getData() != null && VendaLi.getProduto() != null) {
 
                     listaResultado.add(VendaLi);
                 }

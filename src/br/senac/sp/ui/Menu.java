@@ -1,30 +1,43 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.senac.sp.ui;
 
-import br.senac.sp.classes.Venda;
-
+import br.senac.sp.ui.ManipulacaoCliente;
 
 
 /**
  *
- * @author william.sbarreto1
+ * @author WolfDevelloper
  */
 public class Menu extends javax.swing.JFrame {
-    
+private TelaEditarCliente editarCliente = null;
+private ManipulacaoCliente manipulacaoCliente = null;
+   
+  
+
+    public ManipulacaoCliente getManipulacaoCliente() {
+        return manipulacaoCliente;
+    }
+
+    public void setManipulacaoCliente(ManipulacaoCliente manipulacaoCliente) {
+        this.manipulacaoCliente = manipulacaoCliente;
+    }
+
+    public TelaEditarCliente getEditarCliente() {
+        return editarCliente;
+    }
+
+    public void setEditarCliente(TelaEditarCliente editarCliente) {
+        this.editarCliente = editarCliente;
+    }
     /**
      * Creates new form Menu
      */
     public Menu() {
-        initComponents();  
-        
+        initComponents();
+
         this.setLocationRelativeTo(null);
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -168,7 +181,7 @@ public class Menu extends javax.swing.JFrame {
     private void buttonProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProdutosActionPerformed
         Produtos produtos = new Produtos();
         produtos.setVisible(true);
-        if(buttonProdutos.isEnabled()){
+        if (buttonProdutos.isEnabled()) {
             produtos.toFront();
         }
     }//GEN-LAST:event_buttonProdutosActionPerformed
@@ -176,21 +189,22 @@ public class Menu extends javax.swing.JFrame {
     private void buttonVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVendasActionPerformed
         TelaVendas venda = new TelaVendas();
         venda.setVisible(true);
-        if(buttonVendas.isEnabled()){
+        if (buttonVendas.isEnabled()) {
             venda.toFront();
         }
     }//GEN-LAST:event_buttonVendasActionPerformed
 
     private void buttonClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClientesActionPerformed
-       Clientes cli = new Clientes();
-        if(buttonClientes.isEnabled()){
+        ManipulacaoCliente cli = new ManipulacaoCliente();
+        if (buttonClientes.isEnabled()) {
             cli.setVisible(true);
+            System.out.println("entrei");
         }
     }//GEN-LAST:event_buttonClientesActionPerformed
 
     private void buttonRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRelatorioActionPerformed
         RelatorioVendas relVendas = new RelatorioVendas();
-        if(buttonRelatorio.isEnabled()){
+        if (buttonRelatorio.isEnabled()) {
             relVendas.setVisible(true);
         }
     }//GEN-LAST:event_buttonRelatorioActionPerformed
@@ -198,9 +212,8 @@ public class Menu extends javax.swing.JFrame {
     private void buttonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSairActionPerformed
         System.exit(0);
     }//GEN-LAST:event_buttonSairActionPerformed
-    
+
     //Abre um internal frame centralizado na tela
-    
     /**
      * Método de inicialização da classe e do sistema
      */
@@ -247,4 +260,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
+
+   
 }
