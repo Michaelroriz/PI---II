@@ -1,12 +1,12 @@
-package br.senac.sp.ui;
+package br.senac.ui.cliente;
 
+import br.senac.ui.cliente.TelaEditarCliente;
 import br.senac.sp.classes.Cliente;
 import br.senac.sp.dados.MockCliente;
 import br.senac.sp.exceptions.ClienteException;
 import br.senac.sp.servicos.ServicoCliente;
 import java.util.Date;
 import java.util.List;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author WolfDevelloper
  */
-public class ManipulacaoCliente extends javax.swing.JInternalFrame {
+public class ManipulacaoCliente extends javax.swing.JFrame {
 
     //Instanca do form de edição de clientes
     TelaEditarCliente formEditarCliente = new TelaEditarCliente();

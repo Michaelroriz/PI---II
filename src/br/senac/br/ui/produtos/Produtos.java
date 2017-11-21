@@ -1,4 +1,4 @@
-package br.senac.sp.ui;
+package br.senac.br.ui.produtos;
 
 import br.senac.sp.classes.Produto;
 import br.senac.sp.exceptions.ProdutoException;

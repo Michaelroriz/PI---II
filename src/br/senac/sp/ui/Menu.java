@@ -1,18 +1,19 @@
-
 package br.senac.sp.ui;
 
-import br.senac.sp.ui.ManipulacaoCliente;
-
+import br.senac.br.ui.produtos.Produtos;
+import br.senac.ui.vendas.RelatorioVendas;
+import br.senac.ui.vendas.TelaVendas;
+import br.senac.ui.cliente.TelaEditarCliente;
+import br.senac.ui.cliente.ManipulacaoCliente;
 
 /**
  *
  * @author WolfDevelloper
  */
 public class Menu extends javax.swing.JFrame {
-private TelaEditarCliente editarCliente = null;
-private ManipulacaoCliente manipulacaoCliente = null;
-   
-  
+
+    private TelaEditarCliente editarCliente = null;
+    private ManipulacaoCliente manipulacaoCliente = null;
 
     public ManipulacaoCliente getManipulacaoCliente() {
         return manipulacaoCliente;
@@ -29,6 +30,7 @@ private ManipulacaoCliente manipulacaoCliente = null;
     public void setEditarCliente(TelaEditarCliente editarCliente) {
         this.editarCliente = editarCliente;
     }
+
     /**
      * Creates new form Menu
      */
@@ -196,8 +198,9 @@ private ManipulacaoCliente manipulacaoCliente = null;
 
     private void buttonClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClientesActionPerformed
         ManipulacaoCliente cli = new ManipulacaoCliente();
+        cli.setVisible(true);
         if (buttonClientes.isEnabled()) {
-            cli.setVisible(true);
+            cli.toFront();
             System.out.println("entrei");
         }
     }//GEN-LAST:event_buttonClientesActionPerformed
@@ -261,5 +264,4 @@ private ManipulacaoCliente manipulacaoCliente = null;
     private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
 
-   
 }

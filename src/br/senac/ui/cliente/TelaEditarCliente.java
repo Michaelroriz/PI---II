@@ -1,7 +1,8 @@
-package br.senac.sp.ui;
+package br.senac.ui.cliente;
 
 import br.senac.sp.classes.Cliente;
 import br.senac.sp.servicos.ServicoCliente;
+import br.senac.sp.ui.Menu;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import jdk.nashorn.internal.ir.BreakNode;
@@ -62,7 +63,7 @@ public class TelaEditarCliente extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         botaoEditar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setText("Cadastro De Cliente");
