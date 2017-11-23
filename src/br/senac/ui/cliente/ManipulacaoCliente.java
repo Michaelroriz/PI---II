@@ -1,14 +1,13 @@
 package br.senac.ui.cliente;
 
-import br.senac.ui.cliente.TelaEditarCliente;
 import br.senac.sp.classes.Cliente;
-import br.senac.sp.dados.MockCliente;
 import br.senac.sp.exceptions.ClienteException;
 import br.senac.sp.servicos.ServicoCliente;
+import java.awt.Dimension;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -264,6 +263,11 @@ public class ManipulacaoCliente extends javax.swing.JFrame {
         }
 
         excluir_Cli.setText("Excluir");
+        excluir_Cli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluir_CliActionPerformed(evt);
+            }
+        });
 
         alterar_Cli.setText("Alterar");
         alterar_Cli.addActionListener(new java.awt.event.ActionListener() {
@@ -361,25 +365,48 @@ public class ManipulacaoCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_voltarTelaUmActionPerformed
 
     private void buttonIncluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIncluirClienteActionPerformed
-        // TODO add your handling code here:
 
         Cliente cliente = new Cliente();
-        cliente.setEndereco(txt_Rua.getText(), txt_bairro.getText(), txt_cidade.getText(), (String) combo_estado.getSelectedItem(), txt_complemento.getText(), txt_cep.getText());
         cliente.setNome(txt_nome.getText());
         cliente.setSobrenome(txt_sobrenome.getText());
         cliente.setDataNascimento((Date) data_nasc.getValue());
         cliente.setGenero((String) combo_genero.getSelectedItem());
+        cliente.setRua(txt_Rua.getText());
+        cliente.setBairro(txt_bairro.getText());
+        cliente.setCidade(txt_cidade.getText());
+        cliente.setEstado((String) combo_estado.getSelectedItem());
+        cliente.setComplemento(txt_complemento.getText());
+        cliente.setCep(txt_cep.getText());
+        cliente.setCpf(txt_cpf.getText());
 
         try {
-            MockCliente.inserir(cliente);
-        } catch (Exception ex) {
-            System.out.println("ERRO Ao Inserir cliente na lista de dados");
+            //Chama o serviço para cadastro do produto
+            ServicoCliente.cadastrarCliente(cliente);
+        } catch (Exception e) {
+            //Exibe mensagens de erro para o usuário
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-
+//            j++;
         //Caso tenha chegado até aqui, o produto foi inserido com sucesso
         //Então exibe uma mensagem de sucesso para o usuário
         JOptionPane.showMessageDialog(rootPane, "Cliente inserido com sucesso",
                 "Cadastro efetuado", JOptionPane.INFORMATION_MESSAGE);
+
+        //Limpa os campos da tela após realizar a inserção
+        
+        txt_nome.setText("");
+        txt_sobrenome.setText("");
+        combo_genero.setSelectedIndex(0);
+        data_nasc.setText("");
+        txt_cpf.setText("");
+        txt_Rua.setText("");
+        txt_bairro.setText("");
+        txt_cidade.setText("");
+        txt_complemento.setText("");
+        txt_cep.setText("");
+        combo_estado.setSelectedIndex(0);
 
     }//GEN-LAST:event_buttonIncluirClienteActionPerformed
 
@@ -440,12 +467,12 @@ public class ManipulacaoCliente extends javax.swing.JFrame {
         for (int i = 0; i < resultado.size(); i++) {
             Cliente cli = resultado.get(i);
             if (cli != null) {
-                Object[] row = new Object[7];
+                Object[] row = new Object[6];
                 row[0] = cli.getNome();
                 row[1] = cli.getSobrenome();
                 row[2] = cli.getDataNascimento();
                 row[3] = cli.getGenero();
-                row[4] = "Rua: " + cli.getRua() + " Bairro" + cli.getBairro() + " CEP:" + cli.getCep() + " Cidade:" + cli.getCidade() + " Estado:" + cli.getEstado() + " Complemento:" + cli.getComplemento();
+                row[4] = cli.getRua();
                 row[5] = cli.getCpf();
                 model.addRow(row);
             }
@@ -468,18 +495,17 @@ public class ManipulacaoCliente extends javax.swing.JFrame {
                 // Obtém a linha selecionada da tabela de resultados
                 final int row = tabelaResultado.getSelectedRow();
                 // Obtém o valor do ID da coluna "ID" da tabela de resultados
-                int id = (int) tabelaResultado.getValueAt(row, 0);
+                Integer id = (Integer) tabelaResultado.getValueAt(row, 0);
                 //Com o ID da coluna, chama o serviço de cliente para obter o cliente com dados atualizados do banco
-                Cliente cli = ServicoCliente.obterCliente(id);
+                Cliente cliente = ServicoCliente.obterCliente(id);
 
                 //Cria uma nova instancia da tela de edição, cofigura o cliente selecionado como elemento a ser editado e mostra a tela de edição.
                 // para exibir a tela énecessário adiciona-lá ao componente de desktop, o "PAI" da janela corrente
                 formEditarCliente.dispose();
                 formEditarCliente = new TelaEditarCliente();
-                formEditarCliente.setCliente(cli);
-            //colocar alguns codigos
-                 this.getParent().add(formEditarCliente);
-               
+                formEditarCliente.setCliente(cliente);
+                formEditarCliente.setTitle(cliente.getNome() + " " + cliente.getSobrenome()+ " " + cliente.getBairro()+ " " + cliente.getCep()+ " " + cliente.getCidade()+ " " + cliente.getComplemento()+ " " + cliente.getCpf()+ " " + cliente.getEstado()+ " " + cliente.getGenero()+ " " + cliente.getRua()+ " " + cliente.getDataNascimento());                
+                this.getParent().add(formEditarCliente);
                 formEditarCliente.toFront();
             } catch (Exception e) {
                 // Se ocorrer algum erro técnico, mostra-o no console, mas esconde do usuário
@@ -493,18 +519,87 @@ public class ManipulacaoCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaResultadoMouseClicked
 
     private void alterar_CliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterar_CliActionPerformed
-        // TODO add your handling code here:
+        try {
+            //Obtém a linha selecionada na tabela de resultados
+            final int row = tabelaResultado.getSelectedRow();
+            //Verifica se há linha selecionada na tabela
+            if (row >= 0) {
+                //Obtém a linha selecionada na tabela
+                Integer id = (Integer) tabelaResultado.getValueAt(row, 0);
+
+                //Solicita ao serviço a obtenção do cliente a partir do
+                //ID selecionado na tabela
+                Cliente cliente = ServicoCliente.obterCliente(id);
+
+                //Cria uma nova instância da tela de edição,
+                //configura o cliente selecionado como elemento a
+                //ser editado e mostra a tela de edição.
+                //Para exibir a tela, é necessário adicioná-la ao
+                //componente de desktop, o "pai" da janela corrente
+                formEditarCliente.dispose();
+                formEditarCliente = new TelaEditarCliente();
+                formEditarCliente.setCliente(cliente);
+                formEditarCliente.setName(cliente.getNome() + " " + cliente.getSobrenome()+ " " + cliente.getBairro()+ " " + cliente.getCep()+ " " + cliente.getCidade()+ " " + cliente.getComplemento()+ " " + cliente.getCpf()+ " " + cliente.getEstado()+ " " + cliente.getGenero()+ " " + cliente.getRua()+ " " + cliente.getDataNascimento());
+                formEditarCliente.setVisible(true);
+                
+                this.setLocationRelativeTo(formEditarCliente);
+                //this.openFrameInCenter(formEditarProduto);
+                formEditarCliente.toFront();
+            }
+        } catch (Exception e) {
+            //Se ocorrer algum erro técnico, mostra-o no console,
+            //mas esconde-o do usuário
+            e.printStackTrace();
+            //Exibe uma mensagem de erro genérica ao usuário
+            JOptionPane.showMessageDialog(rootPane, "Não é possível "
+                    + "exibir os detalhes deste cliente.",
+                    "Erro ao abrir detalhe", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_alterar_CliActionPerformed
 
-    public JPanel getConsultar_Cli() {
-        return Consultar_Cli;
+    private void excluir_CliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluir_CliActionPerformed
+        //Verifica se há itens selecionados para exclusão.
+        //Caso negativo, ignora o comando
+        if (tabelaResultado.getSelectedRow() >= 0) {
+
+            //Obtém a linha do item selecionado
+            final int row = tabelaResultado.getSelectedRow();
+            //Obtém o nome do cliente da linha indicada para exibição
+            //de mensagem de confirmação de exclusão utilizando seu nome
+            String nome = (String) tabelaResultado.getValueAt(row, 1);
+            //Mostra o diálogo de confirmação de exclusão
+            int resposta = JOptionPane.showConfirmDialog(rootPane,
+                    "Excluir o cliente \"" + nome + "\"?",
+                    "Confirmar exclusão", JOptionPane.YES_NO_OPTION);
+            //Se o valor de resposta for "Sim" para a exclusão
+            if (resposta == JOptionPane.YES_OPTION) {
+                try {
+                    //Obtém o ID do cliente
+                    Integer id = (Integer) tabelaResultado.getValueAt(row, 0);
+                    //Solicita ao serviço a inativação do cliente com o ID
+                    ServicoCliente.excluirCliente(id);
+                    //Atualiza a lista após a "exclusão"
+                    this.refreshList();
+                } catch (Exception e) {
+                    //Se ocorrer algum erro técnico, mostra-o no console,
+                    //mas esconde-o do usuário
+                    e.printStackTrace();
+                    //Exibe uma mensagem de erro genérica ao usuário
+                    JOptionPane.showMessageDialog(rootPane, e.getMessage(),
+                            "Falha na Exclusão", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }//GEN-LAST:event_excluir_CliActionPerformed
+    //Abre um internal frame centralizado na tela
+    public void openFrameInCenter(JInternalFrame jif) {
+        Dimension desktopSize = this.getParent().getSize();
+        Dimension jInternalFrameSize = jif.getSize();
+        int width = (desktopSize.width - jInternalFrameSize.width) / 2;
+        int height = (desktopSize.height - jInternalFrameSize.height) / 2;
+        jif.setLocation(width, height);
+        jif.setVisible(true);
     }
-
-    public void setConsultar_Cli(JPanel Consultar_Cli) {
-        this.Consultar_Cli = Consultar_Cli;
-    }
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Cadastrar_Cli;
     private javax.swing.JPanel Consultar_Cli;

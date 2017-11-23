@@ -114,19 +114,5 @@ public class Cliente {
 
     public String getCpf() {
         return cpf;
-    }
-
-    public void setEndereco(String rua, String bairro, String cidade, String estado, String complemento, String cep) {
-        this.rua = rua;
-        this.bairro = bairro;
-        this.cidade = cidade;
-        this.estado = estado;
-        this.complemento = complemento;
-        this.cep = cep;
-    }
-  
-
-    public void setVisible(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    }        
 }

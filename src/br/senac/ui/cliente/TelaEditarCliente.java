@@ -5,7 +5,6 @@ import br.senac.sp.servicos.ServicoCliente;
 import br.senac.sp.ui.Menu;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import jdk.nashorn.internal.ir.BreakNode;
 
 /**
  *
@@ -227,11 +226,17 @@ public class TelaEditarCliente extends javax.swing.JInternalFrame {
 //Listener do botão editar
     private void botaoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditarActionPerformed
 //Configura os novos valores dos campos de edição da tela
-        cli.setEndereco(txt_Rua.getText(), txt_bairro.getText(), txt_cidade.getText(), (String) combo_estado.getSelectedItem(), txt_complemento.getText(), txt_cep.getText());
         cli.setNome(txt_nome.getText());
         cli.setSobrenome(txt_sobrenome.getText());
         cli.setDataNascimento((Date) data_nasc.getValue());
         cli.setGenero((String) combo_genero.getSelectedItem());
+        cli.setRua(txt_Rua.getText());
+        cli.setCidade(txt_cidade.getText());
+        cli.setEstado((String) combo_estado.getSelectedItem());
+        cli.setBairro(txt_bairro.getText());
+        cli.setComplemento(txt_complemento.getText());
+        cli.setCep(txt_cep.getText());
+        cli.setCpf(txt_cpf.getText());
         
         try {
             //Chama o serviço para realizar as alterações necessárias 
@@ -264,7 +269,6 @@ public class TelaEditarCliente extends javax.swing.JInternalFrame {
                 "Cadastro atualizado", JOptionPane.INFORMATION_MESSAGE);
         this.dispose();
         
-
     }//GEN-LAST:event_botaoEditarActionPerformed
 //Listener de abertura de janela. Aproveita o evento para obter os valores do cliente em edição e passa-os para os campos de edição de tela 
 
@@ -277,9 +281,10 @@ public class TelaEditarCliente extends javax.swing.JInternalFrame {
         txt_bairro.setText(cli.getBairro());
         txt_cidade.setText(cli.getCidade());
         combo_estado.setSelectedItem(cli.getEstado());
-        txt_cpf.setText(cli.getCpf());
-       
-        
+        txt_cep.setText(cli.getCep());
+        data_nasc.setValue(cli.getDataNascimento());
+        txt_complemento.setText(cli.getComplemento());
+              
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

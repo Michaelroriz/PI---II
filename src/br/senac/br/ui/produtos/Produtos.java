@@ -515,8 +515,7 @@ public class Produtos extends javax.swing.JFrame {
                 formEditarProduto = new AlterarProduto();
                 formEditarProduto.setProduto(produto);
                 formEditarProduto.setName(produto.getNome() + " " + produto.getDescricao() + " " + produto.getCategoria() + " " + produto.getComposicao() + " " + produto.getMarca() + " " + produto.getTamanho() + " " + produto.getValor() + " " + produto.getQuantidade());
-                formEditarProduto.setVisible(true);
-                AlterarProduto al = new AlterarProduto();
+                formEditarProduto.setVisible(true);                
                 //this.getParent().add(formEditarProduto);
                 this.setLocationRelativeTo(formEditarProduto);
                 //this.openFrameInCenter(formEditarProduto);

@@ -85,7 +85,7 @@ public class Menu extends javax.swing.JFrame {
 
         buttonRelatorio.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         buttonRelatorio.setText("Relatório de Vendas");
-        buttonRelatorio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        buttonRelatorio.setBorder(new javax.swing.border.SoftBevelBorder(0));
         buttonRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRelatorioActionPerformed(evt);
@@ -94,7 +94,7 @@ public class Menu extends javax.swing.JFrame {
 
         buttonProdutos.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         buttonProdutos.setText("Produtos");
-        buttonProdutos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        buttonProdutos.setBorder(new javax.swing.border.SoftBevelBorder(0));
         buttonProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonProdutosActionPerformed(evt);
@@ -103,7 +103,7 @@ public class Menu extends javax.swing.JFrame {
 
         buttonClientes.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         buttonClientes.setText("Clientes");
-        buttonClientes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        buttonClientes.setBorder(new javax.swing.border.SoftBevelBorder(0));
         buttonClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonClientesActionPerformed(evt);
@@ -112,7 +112,7 @@ public class Menu extends javax.swing.JFrame {
 
         buttonVendas.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         buttonVendas.setText("Vendas");
-        buttonVendas.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        buttonVendas.setBorder(new javax.swing.border.SoftBevelBorder(0));
         buttonVendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonVendasActionPerformed(evt);
@@ -121,7 +121,7 @@ public class Menu extends javax.swing.JFrame {
 
         buttonSair.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         buttonSair.setText("Sair");
-        buttonSair.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        buttonSair.setBorder(new javax.swing.border.SoftBevelBorder(0));
         buttonSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSairActionPerformed(evt);
@@ -136,18 +136,16 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(64, 64, 64)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(buttonRelatorio)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(buttonVendas, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-                                    .addComponent(buttonClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-                                    .addComponent(buttonProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(19, 19, 19))
-                            .addComponent(jLabel4)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(buttonRelatorio)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(84, 84, 84)
-                        .addComponent(buttonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 56, Short.MAX_VALUE)
@@ -200,8 +198,7 @@ public class Menu extends javax.swing.JFrame {
         ManipulacaoCliente cli = new ManipulacaoCliente();
         cli.setVisible(true);
         if (buttonClientes.isEnabled()) {
-            cli.toFront();
-            System.out.println("entrei");
+            cli.toFront();            
         }
     }//GEN-LAST:event_buttonClientesActionPerformed
 

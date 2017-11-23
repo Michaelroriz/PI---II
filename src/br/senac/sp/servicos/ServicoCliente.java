@@ -33,7 +33,7 @@ public class ServicoCliente {
             //Imprime qualquer erro Técnico no console e devolve
             // uma exceção e uma menssagem amigavel a camada de visao
             e.printStackTrace();
-            throw new DataSourceException("Erro ao inserir um cliente na fonte de dados", e);
+            throw new DataSourceException("Erro na fonte de dados", e);
 
         }
 
@@ -56,7 +56,7 @@ public class ServicoCliente {
             //Imprime qualquer erro técnico no console e devolve
             //uma exceção e uma menssagem amigável a camada de visão
             e.printStackTrace();
-            throw new DataSourceException("Erro na fonte de dados ao atualizar o cadastro", e);
+            throw new DataSourceException("Erro na fonte de dados", e);
 
         }
 
@@ -82,12 +82,9 @@ public class ServicoCliente {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new DataSourceException("Erro na fonte de dados ao Listar os Clientes", e);
-
+            throw new DataSourceException("Erro na fonte de dados", e);
         }
-
     }
-
     /**
      * Obtem o cliente com o ID informado da fonte de dados
      * @param id
@@ -95,7 +92,7 @@ public class ServicoCliente {
      * @throws ClienteException
      * @throws DataSourceException 
      */
-    public static Cliente obterCliente(int id)
+    public static Cliente obterCliente(Integer id)
             throws ClienteException, DataSourceException {
         try {
             // Retorna o cliente obtido
@@ -105,10 +102,8 @@ public class ServicoCliente {
             //Imprime qualquer erro técnico no console e devololve
             //uma exceção e uma mensaagem amigável a camada de visão
             e.printStackTrace();
-            throw new DataSourceException("Erro na fonte de dados ao obter o ID");
-
+            throw new DataSourceException("Erro na fonte de dados");
         }
-
     }
 
     /**
@@ -117,7 +112,7 @@ public class ServicoCliente {
      * @throws ClienteException
      * @throws DataSourceException 
      */
-    public static void excluirCliente(int id) throws ClienteException, DataSourceException {
+    public static void excluirCliente(Integer id) throws ClienteException, DataSourceException {
         try {
             //Solicita a fonte de dados a exclusão do cliente informado
             MockCliente.excluir(id);
@@ -126,10 +121,7 @@ public class ServicoCliente {
             //Imprime qualquer erro técnico no console e devolve 
             //uma exceção e uma mensagem amigável a camada de visão
             e.printStackTrace();
-            throw new DataSourceException("Erro na fonte de dados ao excluir um Cliente", e);
-
+            throw new DataSourceException("Erro na fonte de dados", e);
         }
-
     }
-
 }
