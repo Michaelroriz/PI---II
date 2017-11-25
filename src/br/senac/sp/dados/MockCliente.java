@@ -35,7 +35,7 @@ public class MockCliente {
      */
     public static void atualizarCliente(Cliente buscaCliente)
             throws Exception {
-        if (buscaCliente != null && buscaCliente.getId() != 0 && !listaClientes.isEmpty()) {
+        if (buscaCliente != null && buscaCliente.getId() != null && !listaClientes.isEmpty()) {
 
             for (Cliente clienteLi : listaClientes) {
                 if (clienteLi != null && clienteLi.getId() == buscaCliente.getId()) {
@@ -124,6 +124,8 @@ public class MockCliente {
                         listaResultado.add(clienteLi);
                     }else if(clienteLi.getRua().toUpperCase().contains(valor.toUpperCase())){
                         listaResultado.add(clienteLi);
+                    }else if(clienteLi.getDataNascimento().toString().toUpperCase().contains(valor.toUpperCase())){
+                        listaResultado.add(clienteLi);
                     }
                 }
             }
@@ -141,7 +143,7 @@ public class MockCliente {
      */
     public static Cliente obter(Integer id)
             throws Exception {
-        if (id != 0 && !listaClientes.isEmpty()) {
+        if (id != null && !listaClientes.isEmpty()) {
             for (int i = 0; i < listaClientes.size(); i++) {
                 if (listaClientes.get(i) != null && listaClientes.get(i).getId() == id) {
                     return listaClientes.get(i);
