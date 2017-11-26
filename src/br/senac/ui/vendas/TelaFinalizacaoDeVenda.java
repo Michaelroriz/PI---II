@@ -9,12 +9,12 @@ package br.senac.ui.vendas;
  *
  * @author victor.salves1
  */
-public class TelaFinalizacaoDeCompra extends javax.swing.JFrame {
+public class TelaFinalizacaoDeVenda extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaFinalizacaoDeCompra
      */
-    public TelaFinalizacaoDeCompra() {
+    public TelaFinalizacaoDeVenda() {
         initComponents();
     }
 
@@ -43,7 +43,7 @@ public class TelaFinalizacaoDeCompra extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Finalizar Compra");
+        setTitle("Finalizar Venda");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Itens do Carrinho");

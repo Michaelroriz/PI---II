@@ -230,7 +230,7 @@ public class TelaVendas extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonCancelarActionPerformed
 
     private void buttonConfirmarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmarCompraActionPerformed
-        TelaFinalizacaoDeCompra finalVendas = new TelaFinalizacaoDeCompra();
+        TelaFinalizacaoDeVenda finalVendas = new TelaFinalizacaoDeVenda();
         if(buttonConfirmarCompra.isEnabled()){
             finalVendas.setVisible(true);
         }
