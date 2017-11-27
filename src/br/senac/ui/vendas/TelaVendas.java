@@ -10,10 +10,10 @@ import br.senac.sp.classes.Produto;
 import br.senac.sp.classes.Venda;
 import br.senac.sp.exceptions.ClienteException;
 import br.senac.sp.exceptions.ProdutoException;
-import br.senac.sp.exceptions.VendaException;
 import br.senac.sp.servicos.ServiceProduto;
-import br.senac.sp.servicos.ServiceVenda;
 import br.senac.sp.servicos.ServicoCliente;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -31,12 +31,13 @@ public class TelaVendas extends javax.swing.JFrame {
     String ultimaPesquisaPro = null;
     
     Cliente cli = new Cliente();
+    
     public TelaVendas() {
         initComponents();
-        
-        updateTabelaProdutos();
-    }
 
+        updateTabelaProdutos();
+    }   
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,11 +58,12 @@ public class TelaVendas extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaProdutos = new javax.swing.JTable();
         buttonAdd = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        tableCliente = new javax.swing.JTable();
+        tabelaCliente = new javax.swing.JTable();
         textProducts = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaCarrinho = new javax.swing.JTable();
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -135,30 +137,46 @@ public class TelaVendas extends javax.swing.JFrame {
         buttonAdd.setForeground(new java.awt.Color(255, 0, 0));
         buttonAdd.setText("Adicionar");
         buttonAdd.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        buttonAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                buttonAddActionPerformed(evt);
             }
         });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         jLabel5.setText("* Insira o id, nome ou CPF do Cliente");
 
-        tableCliente.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Id", "Nome", "Sobrenome", "CPF"
             }
         ));
-        jScrollPane6.setViewportView(tableCliente);
+        jScrollPane6.setViewportView(tabelaCliente);
 
         textProducts.setEnabled(false);
+        textProducts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textProductsActionPerformed(evt);
+            }
+        });
+
+        tabelaCarrinho.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Nome", "Valor"
+            }
+        ));
+        tabelaCarrinho.addHierarchyListener(new java.awt.event.HierarchyListener() {
+            public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
+                tabelaCarrinhoHierarchyChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelaCarrinho);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -166,9 +184,8 @@ public class TelaVendas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -179,18 +196,20 @@ public class TelaVendas extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(buttonBuscarCliente))))
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(buttonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(buttonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(textProducts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(buttonConfirmarCompra, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(buttonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(buttonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(textProducts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(buttonConfirmarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,18 +227,20 @@ public class TelaVendas extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                    .addComponent(buttonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textProducts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonConfirmarCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(4, 4, 4)))
-                .addGap(15, 15, 15))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textProducts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonConfirmarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -231,7 +252,44 @@ public class TelaVendas extends javax.swing.JFrame {
 
     private void buttonConfirmarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmarCompraActionPerformed
         TelaFinalizacaoDeVenda finalVendas = new TelaFinalizacaoDeVenda();
-        if(buttonConfirmarCompra.isEnabled()){
+        if (buttonConfirmarCompra.isEnabled()) {
+            try {
+                //Obtém a linha selecionada da tabela de resultados do carrinho
+                final int row[] = tabelaCarrinho.getSelectedRows();
+                //Obtém a linha selecionada da tabela de resultado da tabela de clientes
+                final int rowCliente = tabelaCliente.getSelectedRow();
+                //Obtém o valor do ID da coluna "ID" da tabela de resultados do carrinho
+                Integer id;
+                Integer idCliente = (Integer) tabelaCliente.getValueAt(rowCliente, 0);
+                Cliente cliente = ServicoCliente.obterCliente(idCliente);
+                //Com o ID da coluna, chama o serviço de produto para
+                //obter o produto com dados atualizados do mock
+
+                DefaultTableModel model = (DefaultTableModel) tabelaCarrinho.getModel();
+                //Indica que a tabela deve excluir todos seus elementos
+                //Isto limpará a lista, mesmo que a pesquisa não tenha sucesso                
+                Venda venda = new Venda();
+                venda.setCliente(cliente);
+                //Obtém a data no instante em que foi confirmado o carrinho
+                venda.setData(Date.from(Instant.now()));
+                for (int i = 0; i < tabelaCarrinho.getComponentCount()+1; i++) {
+                    id = (Integer) tabelaCarrinho.getValueAt(row[i], 0);
+                    Produto produto = ServiceProduto.obterProduto(id);
+                    //Reduz a quantidade em estoque do produto
+                    produto.setQuantidade(produto.getQuantidade() - 1);
+
+                    venda.setProduto(produto);
+                }
+
+            } catch (Exception e) {
+                //Se ocorrer algum erro técnico, mostra-o no console,
+                //mas esconde-o do usuário
+                e.printStackTrace();
+                //Exibe uma mensagem de erro genérica ao usuário
+                JOptionPane.showMessageDialog(rootPane, "Não é possível "
+                        + "confirmar o carrinho",
+                        "Erro ao abrir detalhe", JOptionPane.ERROR_MESSAGE);
+            }
             finalVendas.setVisible(true);
         }
     }//GEN-LAST:event_buttonConfirmarCompraActionPerformed
@@ -240,14 +298,10 @@ public class TelaVendas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textFieldBuscaClienteActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     private void buttonBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarClienteActionPerformed
         //Inicializa o sucesso da pesquisa com valor negativo, indicando que
         //a pesquisa de vendas não obteve resultados (situação padrão)
-        
+
         boolean resultSearch = false;
 
         //Grava o campo de pesquisa como a última pesquisa válida. O valor
@@ -273,7 +327,52 @@ public class TelaVendas extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonBuscarClienteActionPerformed
 
-    //Atualiza a lista de clientes. Pode ser chamado por outras telas
+    private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
+        if (buttonAdd.isEnabled()) {
+
+            try {
+                //Obtém a linha selecionada da tabela de resultados
+                final int row = tabelaProdutos.getSelectedRow();
+                //Obtém o valor do ID da coluna "ID" da tabela de resultados
+                Integer id = (Integer) tabelaProdutos.getValueAt(row, 0);
+
+                //Com o ID da coluna, chama o serviço de produto para
+                //obter o produto com dados atualizados do mock
+                Produto produto = ServiceProduto.obterProduto(id);
+                DefaultTableModel model = (DefaultTableModel) tabelaCarrinho.getModel();
+                //Indica que a tabela deve excluir todos seus elementos
+                //Isto limpará a lista, mesmo que a pesquisa não tenha sucesso
+                //model.setRowCount(0);
+
+                Object[] rowa = new Object[3];
+                rowa[0] = produto.getCodigo();
+                rowa[1] = produto.getNome();
+                rowa[2] = produto.getValor();
+                model.addRow(rowa);
+
+            } catch (Exception e) {
+                //Se ocorrer algum erro técnico, mostra-o no console,
+                //mas esconde-o do usuário
+                e.printStackTrace();
+                //Exibe uma mensagem de erro genérica ao usuário
+                JOptionPane.showMessageDialog(rootPane, "Não é possível "
+                        + "exibir os detalhes deste produto.",
+                        "Erro ao abrir detalhe", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+
+    }//GEN-LAST:event_buttonAddActionPerformed
+
+    private void textProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textProductsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textProductsActionPerformed
+
+    private void tabelaCarrinhoHierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_tabelaCarrinhoHierarchyChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelaCarrinhoHierarchyChanged
+
+//Atualiza a lista de clientes. Pode ser chamado por outras telas
     public boolean refreshListCliente() throws ClienteException, Exception {
         //Realiza a pesquisa de vendas com o último valor de pesquisa
         //para atualizar a lista
@@ -281,7 +380,7 @@ public class TelaVendas extends javax.swing.JFrame {
                 procurarCliente(ultimaPesquisaCli);
 
         //Obtém o elemento representante do conteúdo da tabela na tela
-        DefaultTableModel model = (DefaultTableModel) tableCliente.getModel();
+        DefaultTableModel model = (DefaultTableModel) tabelaCliente.getModel();
         //Indica que a tabela deve excluir todos seus elementos
         //Isto limpará a lista, mesmo que a pesquisa não tenha sucesso
         model.setRowCount(0);
@@ -300,7 +399,7 @@ public class TelaVendas extends javax.swing.JFrame {
                 row[0] = cli.getId();
                 row[1] = cli.getNome();
                 row[2] = cli.getSobrenome();
-                row[3] = cli.getCpf();                
+                row[3] = cli.getCpf();
                 model.addRow(row);
             }
         }
@@ -310,19 +409,20 @@ public class TelaVendas extends javax.swing.JFrame {
         //que não devem ser exibidas mensagens de erro
         return true;
     }
-    private void tableClienteMouseClicked(java.awt.event.MouseEvent evt) {
+
+    private void tabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {
         //Verifica se o clique é um clique duplo       
         if (evt.getClickCount() == 2) {
             try {
                 //Obtém a linha selecionada da tabela de resultados
-                final int row = tableCliente.getSelectedRow();
+                final int row = tabelaCliente.getSelectedRow();
                 //Obtém o valor do ID da coluna "ID" da tabela de resultados
-                Integer id = (Integer) tableCliente.getValueAt(row, 0);
+                Integer id = (Integer) tabelaCliente.getValueAt(row, 0);
 
                 //Com o ID da coluna, chama o serviço de produto para
                 //obter o produto com dados atualizados do mock
                 Cliente cliente = ServicoCliente.obterCliente(id);
-                
+
             } catch (Exception e) {
                 //Se ocorrer algum erro técnico, mostra-o no console,
                 //mas esconde-o do usuário
@@ -342,13 +442,14 @@ public class TelaVendas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tabelaCarrinho;
+    private javax.swing.JTable tabelaCliente;
     private javax.swing.JTable tabelaProdutos;
-    private javax.swing.JTable tableCliente;
     private javax.swing.JTextField textFieldBuscaCliente;
     private javax.swing.JTextField textProducts;
     // End of variables declaration//GEN-END:variables
@@ -377,6 +478,7 @@ public class TelaVendas extends javax.swing.JFrame {
                     "Sem resultados", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     public boolean refreshListProdutos() throws ProdutoException, Exception {
         //Realiza a pesquisa de vendas com o último valor de pesquisa
         //para atualizar a lista
@@ -418,7 +520,8 @@ public class TelaVendas extends javax.swing.JFrame {
         //que não devem ser exibidas mensagens de erro
         return true;
     }
-    private void tableProdutoMouseClicked(java.awt.event.MouseEvent evt) {
+
+    public void tabelaProdutoMouseClicked(java.awt.event.MouseEvent evt) {
         //Verifica se o clique é um clique duplo       
         if (evt.getClickCount() == 2) {
             try {
@@ -430,7 +533,7 @@ public class TelaVendas extends javax.swing.JFrame {
                 //Com o ID da coluna, chama o serviço de produto para
                 //obter o produto com dados atualizados do mock
                 Produto produto = ServiceProduto.obterProduto(id);
-                
+
             } catch (Exception e) {
                 //Se ocorrer algum erro técnico, mostra-o no console,
                 //mas esconde-o do usuário
@@ -441,5 +544,9 @@ public class TelaVendas extends javax.swing.JFrame {
                         "Erro ao abrir detalhe", JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+    public DefaultTableModel tabelaCart() {
+        DefaultTableModel model = (DefaultTableModel) tabelaCarrinho.getModel();
+        return model;
     }
 }
