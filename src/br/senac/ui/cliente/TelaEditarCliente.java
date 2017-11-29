@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 /**
  * Tela de Edição de dados de cliente
  */
-public class TelaEditarCliente extends javax.swing.JFrame {
+public class TelaEditarCliente extends javax.swing.JInternalFrame {
 
     // Armazena o cliente em edição
     Cliente cli = new Cliente();

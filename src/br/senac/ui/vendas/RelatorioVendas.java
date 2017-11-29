@@ -9,7 +9,7 @@ package br.senac.ui.vendas;
  *
  * @author victor.salves1
  */
-public class RelatorioVendas extends javax.swing.JFrame {
+public class RelatorioVendas extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form NewJFrame

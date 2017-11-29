@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author WolfDevelloper
  */
-public class ManipulacaoCliente extends javax.swing.JFrame {
+public class ManipulacaoCliente extends javax.swing.JInternalFrame {
 
     //Instanca do form de edição de clientes
     TelaEditarCliente formEditarCliente = new TelaEditarCliente();
@@ -75,9 +75,13 @@ public class ManipulacaoCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        Cadastrar_Cli.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Cadastrar_Cli.setAutoscrolls(true);
+
         txt_Rua.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         buttonIncluirCliente.setText("Confirmar");
+        buttonIncluirCliente.setAutoscrolls(true);
         buttonIncluirCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonIncluirClienteActionPerformed(evt);
@@ -128,7 +132,34 @@ public class ManipulacaoCliente extends javax.swing.JFrame {
             Cadastrar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Cadastrar_CliLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(Cadastrar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(Cadastrar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Cadastrar_CliLayout.createSequentialGroup()
+                        .addGroup(Cadastrar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(Cadastrar_CliLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(44, 44, 44)
+                                .addComponent(txt_nome))
+                            .addGroup(Cadastrar_CliLayout.createSequentialGroup()
+                                .addGroup(Cadastrar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel7))
+                                .addGap(18, 18, 18)
+                                .addGroup(Cadastrar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_sobrenome)
+                                    .addComponent(txt_cpf)
+                                    .addComponent(data_nasc)
+                                    .addComponent(combo_genero, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txt_Rua)
+                                    .addComponent(txt_bairro)
+                                    .addComponent(txt_cep)
+                                    .addComponent(txt_cidade)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Cadastrar_CliLayout.createSequentialGroup()
+                                        .addComponent(txt_complemento, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel12)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(combo_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap(70, Short.MAX_VALUE))
                     .addGroup(Cadastrar_CliLayout.createSequentialGroup()
                         .addGroup(Cadastrar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -137,41 +168,24 @@ public class ManipulacaoCliente extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(jLabel9)
                             .addComponent(jLabel10)
-                            .addComponent(jLabel11)
-                            .addComponent(voltarTelaUm))
-                        .addGap(259, 259, 259)
-                        .addComponent(buttonIncluirCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel4)
-                    .addGroup(Cadastrar_CliLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(44, 44, 44)
-                        .addComponent(txt_nome))
-                    .addGroup(Cadastrar_CliLayout.createSequentialGroup()
-                        .addGroup(Cadastrar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel7))
-                        .addGap(18, 18, 18)
-                        .addGroup(Cadastrar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_sobrenome)
-                            .addComponent(txt_cpf)
-                            .addComponent(data_nasc)
-                            .addComponent(combo_genero, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txt_Rua)
-                            .addComponent(txt_bairro)
-                            .addComponent(txt_cep)
-                            .addComponent(txt_cidade)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Cadastrar_CliLayout.createSequentialGroup()
-                                .addComponent(txt_complemento)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(combo_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(70, Short.MAX_VALUE))
+                            .addComponent(jLabel11))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(Cadastrar_CliLayout.createSequentialGroup()
+                .addComponent(voltarTelaUm)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buttonIncluirCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Cadastrar_CliLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(193, 193, 193))
         );
         Cadastrar_CliLayout.setVerticalGroup(
             Cadastrar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Cadastrar_CliLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGroup(Cadastrar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(voltarTelaUm)
+                    .addComponent(buttonIncluirCliente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addGroup(Cadastrar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -215,11 +229,7 @@ public class ManipulacaoCliente extends javax.swing.JFrame {
                     .addComponent(txt_complemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(combo_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addGroup(Cadastrar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(voltarTelaUm)
-                    .addComponent(buttonIncluirCliente))
-                .addGap(110, 110, 110))
+                .addContainerGap(160, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout Panel_CliLayout = new javax.swing.GroupLayout(Panel_Cli);
@@ -231,7 +241,7 @@ public class ManipulacaoCliente extends javax.swing.JFrame {
         Panel_CliLayout.setVerticalGroup(
             Panel_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_CliLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(Cadastrar_Cli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -268,7 +278,7 @@ public class ManipulacaoCliente extends javax.swing.JFrame {
             }
         });
 
-        alterar_Cli.setText("Alterar");
+        alterar_Cli.setText("Ver");
         alterar_Cli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 alterar_CliActionPerformed(evt);
@@ -296,7 +306,7 @@ public class ManipulacaoCliente extends javax.swing.JFrame {
             .addGroup(Consultar_CliLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(Consultar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
                     .addGroup(Consultar_CliLayout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -318,7 +328,7 @@ public class ManipulacaoCliente extends javax.swing.JFrame {
         Consultar_CliLayout.setVerticalGroup(
             Consultar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Consultar_CliLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(1, 1, 1)
                 .addComponent(jLabel14)
                 .addGap(2, 2, 2)
                 .addGroup(Consultar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -484,7 +494,7 @@ public class ManipulacaoCliente extends javax.swing.JFrame {
                 formEditarCliente.setName(cliente.getNome() + " " + cliente.getSobrenome()+ " " + cliente.getCpf() + " " + cliente.getDataNascimento() + " " + cliente.getGenero() + " " + cliente.getRua() + " " + cliente.getBairro() + " " + cliente.getCep() + " " + cliente.getCidade() + " " + cliente.getComplemento() + " " + cliente.getEstado() );                
                 formEditarCliente.setVisible(true);
                 
-                this.setLocationRelativeTo(formEditarCliente);
+                
                 //this.openFrameInCenter(formEditarProduto);
                 formEditarCliente.toFront();
             }

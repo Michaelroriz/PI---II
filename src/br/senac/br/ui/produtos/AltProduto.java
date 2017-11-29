@@ -10,11 +10,11 @@ import javax.swing.JOptionPane;
  *
  * @author Michael
  */
-public class AlterarProduto extends javax.swing.JFrame {
+public class AltProduto extends javax.swing.JInternalFrame {
 
     Produto produto = new Produto();
     
-    public AlterarProduto() {
+    public AltProduto() {
         initComponents();        
     }
      public Produto getProduto() {
@@ -55,7 +55,7 @@ public class AlterarProduto extends javax.swing.JFrame {
         buttonCancelar = new javax.swing.JButton();
         buttonSetarDados = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Alterar Produto");
 
         buttonConfirmarAlt.setText("Confirmar");
@@ -140,26 +140,25 @@ public class AlterarProduto extends javax.swing.JFrame {
                         .addComponent(buttonCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonConfirmarAlt))
-                    .addGroup(jPanelAlterar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanelAlterar1Layout.createSequentialGroup()
-                            .addGroup(jPanelAlterar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel7)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel8)
-                                .addComponent(jLabel9))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanelAlterar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(fieldDescricaoAlt, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(fieldComposicaoAlt)
-                                .addComponent(fieldMarcaAlt)
-                                .addComponent(comboBoxCategoriaAlt, 0, 545, Short.MAX_VALUE)
-                                .addComponent(fieldNomeAlt))
-                            .addGap(0, 0, Short.MAX_VALUE))
-                        .addGroup(jPanelAlterar1Layout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(buttonSetarDados))))
+                    .addGroup(jPanelAlterar1Layout.createSequentialGroup()
+                        .addGroup(jPanelAlterar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelAlterar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(fieldDescricaoAlt, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(fieldComposicaoAlt)
+                            .addComponent(fieldMarcaAlt)
+                            .addComponent(comboBoxCategoriaAlt, 0, 545, Short.MAX_VALUE)
+                            .addComponent(fieldNomeAlt))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanelAlterar1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonSetarDados)))
                 .addContainerGap())
         );
         jPanelAlterar1Layout.setVerticalGroup(

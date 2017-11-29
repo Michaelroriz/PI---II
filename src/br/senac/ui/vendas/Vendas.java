@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author william.sbarreto1
  */
-public class TelaVendas extends javax.swing.JFrame {
+public class Vendas extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form TelaVendas
@@ -31,7 +31,7 @@ public class TelaVendas extends javax.swing.JFrame {
     String ultimaPesquisaPro = null;
     
     Cliente cli = new Cliente();
-    public TelaVendas() {
+    public Vendas() {
         initComponents();
         
         updateTabelaProdutos();
@@ -373,7 +373,7 @@ public class TelaVendas extends javax.swing.JFrame {
 
         //Exibe mensagem de erro caso a pesquisa não tenha resultados
         if (!resultSearch) {
-            JOptionPane.showMessageDialog(rootPane, "A pesquisa não retornou resultados ",
+            JOptionPane.showMessageDialog(rootPane, "Nenhum Produto Cadastrado ",
                     "Sem resultados", JOptionPane.ERROR_MESSAGE);
         }
     }

@@ -9,10 +9,10 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class Produtos extends javax.swing.JFrame {    
+public class Produtos extends javax.swing.JInternalFrame {    
     
     //Instância do form de edição de produtos
-    AlterarProduto formEditarProduto = new AlterarProduto();
+    AltProduto formEditarProduto = new AltProduto();
     //Armazena a última pesquisa realizada
     String ultimaPesquisa = null;
 
@@ -121,16 +121,16 @@ public class Produtos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buttonBuscar))
                     .addGroup(jPanelConsultarLayout.createSequentialGroup()
-                        .addGap(0, 32, Short.MAX_VALUE)
-                        .addGroup(jPanelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanelConsultarLayout.createSequentialGroup()
-                                .addComponent(buttonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(buttonVoltar)))))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(buttonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(377, 377, 377)
+                        .addComponent(buttonVoltar)))
                 .addGap(33, 33, 33))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelConsultarLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanelConsultarLayout.setVerticalGroup(
             jPanelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -486,7 +486,7 @@ public class Produtos extends javax.swing.JFrame {
                 //Para exibir a tela, é necessário adicioná-la ao
                 //componente de desktop, o "pai" da janela corrente
                 formEditarProduto.dispose();
-                formEditarProduto = new AlterarProduto();
+                formEditarProduto = new AltProduto();
                 formEditarProduto.setProduto(produto);
                 formEditarProduto.setTitle(produto.getNome() + " " + produto.getDescricao() + " " + produto.getCategoria() + " " + produto.getComposicao() + " " + produto.getMarca() + " " + produto.getTamanho() + " " + produto.getValor() + " " + produto.getQuantidade());
                 this.getParent().add(formEditarProduto);
@@ -526,7 +526,7 @@ public class Produtos extends javax.swing.JFrame {
                 //Para exibir a tela, é necessário adicioná-la ao
                 //componente de desktop, o "pai" da janela corrente
                 formEditarProduto.dispose();
-                formEditarProduto = new AlterarProduto();
+                formEditarProduto = new AltProduto();
                 formEditarProduto.setProduto(produto);
                 formEditarProduto.setName(produto.getNome() + " " + produto.getDescricao() + " " + produto.getCategoria() + " " + produto.getComposicao() + " " + produto.getMarca() + " " + produto.getTamanho() + " " + produto.getValor() + " " + produto.getQuantidade());
                 formEditarProduto.setVisible(true);                
@@ -626,6 +626,10 @@ public class Produtos extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane;
     private javax.swing.JTable tabelaResultados;
     // End of variables declaration//GEN-END:variables
+
+    private void setLocationRelativeTo(AltProduto formEditarProduto) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 //    private void openFrameInCenter(AlterarProduto formEditarProduto) {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
