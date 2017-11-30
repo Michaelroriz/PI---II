@@ -3,7 +3,7 @@ package br.senac.sp.servicos;
 import br.senac.sp.dados.MockCliente;
 import br.senac.sp.exceptions.ClienteException;
 import br.senac.sp.exceptions.DataSourceException;
-import br.senac.sp.classes.Cliente;
+import br.senac.sp.entidades.Cliente;
 import br.senac.sp.validador.validadorCliente;
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package br.senac.br.ui.produtos;
+package br.senac.ui.produtos;
 
-import br.senac.sp.classes.Produto;
+import br.senac.sp.entidades.Produto;
 import br.senac.sp.servicos.ServiceProduto;
 import com.sun.glass.events.MouseEvent;
 

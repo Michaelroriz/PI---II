@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.senac.sp.classes;
+package br.senac.sp.entidades;
 
 public class Produto {
 

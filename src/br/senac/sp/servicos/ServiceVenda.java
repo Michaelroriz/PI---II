@@ -5,7 +5,7 @@
  */
 package br.senac.sp.servicos;
 
-import br.senac.sp.classes.Venda;
+import br.senac.sp.entidades.Venda;
 import br.senac.sp.dados.MockVenda;
 import br.senac.sp.exceptions.DataSourceException;
 import br.senac.sp.exceptions.VendaException;

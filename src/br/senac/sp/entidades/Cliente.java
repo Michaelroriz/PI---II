@@ -1,4 +1,4 @@
-package br.senac.sp.classes;
+package br.senac.sp.entidades;
 
 import java.util.Date;
 //Classe de negócio de cliente

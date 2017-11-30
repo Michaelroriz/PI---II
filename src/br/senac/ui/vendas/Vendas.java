@@ -5,9 +5,9 @@
  */
 package br.senac.ui.vendas;
 
-import br.senac.sp.classes.Cliente;
-import br.senac.sp.classes.Produto;
-import br.senac.sp.classes.Venda;
+import br.senac.sp.entidades.Cliente;
+import br.senac.sp.entidades.Produto;
+import br.senac.sp.entidades.Venda;
 import br.senac.sp.exceptions.ClienteException;
 import br.senac.sp.exceptions.ProdutoException;
 import br.senac.sp.exceptions.VendaException;

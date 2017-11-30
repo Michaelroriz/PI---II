@@ -1,6 +1,6 @@
 package br.senac.sp.ui;
 
-import br.senac.br.ui.produtos.Produtos;
+import br.senac.ui.produtos.Produtos;
 import br.senac.ui.vendas.RelatorioVendas;
 import br.senac.ui.vendas.Vendas;
 import br.senac.ui.cliente.TelaEditarCliente;
@@ -218,10 +218,10 @@ public class Menu extends javax.swing.JFrame {
 
     /*
     * Menu de manipulação de Produtos
-    */
+     */
     private void menuManipularProdutosAcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuManipularProdutosAcaoActionPerformed
-        if ( produtos == null || !produtos.isDisplayable()) {
-            produtos = new  Produtos();
+        if (produtos == null || !produtos.isDisplayable()) {
+            produtos = new Produtos();
             jDesktopPane.add(produtos);
             this.openFrameInCenter(produtos);
 
@@ -231,20 +231,34 @@ public class Menu extends javax.swing.JFrame {
 
     /*
     * Abre janela de Vendas no menu Principal
-    */
+     */
     private void menuAcaoVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAcaoVendaActionPerformed
-       if ( vendas == null || !vendas.isDisplayable()) {
-            vendas = new  Vendas();
+        if (vendas == null || !vendas.isDisplayable()) {
+            vendas = new Vendas();
             jDesktopPane.add(vendas);
             this.openFrameInCenter(vendas);
 
         }
         vendas.toFront();
     }//GEN-LAST:event_menuAcaoVendaActionPerformed
+    /*
+    *  Método de Criação de frame Centralizado na tela
+     */
+    private void openFrameInCenter(JInternalFrame jif) {
+        Dimension desktopSize = jDesktopPane.getSize();
+        Dimension jInternalFrameSize = jif.getSize();
+        int width = (desktopSize.width - jInternalFrameSize.width) / 2;
+        int height = (desktopSize.height - jInternalFrameSize.height) / 2;
+        jif.setLocation(width, height);
+        jif.setVisible(true);
+
+    }
 
     //Abre um internal frame centralizado na tela
     /**
      * Método de inicialização da classe e do sistema
+     *
+     * @param args
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -272,24 +286,13 @@ public class Menu extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new Menu().setVisible(true);
             }
         });
     }
 
-    /*
-    * Método de Criação de frame Centralizado na tela
-     */
-    private void openFrameInCenter(JInternalFrame jif) {
-        Dimension desktopSize = jDesktopPane.getSize();
-        Dimension jInternalFrameSize = jif.getSize();
-        int width = (desktopSize.width - jInternalFrameSize.width) / 2;
-        int height = (desktopSize.height - jInternalFrameSize.height) / 2;
-        jif.setLocation(width, height);
-        jif.setVisible(true);
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MenuVendas;

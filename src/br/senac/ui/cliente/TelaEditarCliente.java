@@ -1,6 +1,6 @@
 package br.senac.ui.cliente;
 
-import br.senac.sp.classes.Cliente;
+import br.senac.sp.entidades.Cliente;
 import br.senac.sp.servicos.ServicoCliente;
 import br.senac.sp.ui.Menu;
 import java.util.Date;

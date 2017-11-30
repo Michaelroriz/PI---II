@@ -1,7 +1,7 @@
 package br.senac.sp.validador;
 
 import br.senac.sp.exceptions.ClienteException;
-import br.senac.sp.classes.Cliente;
+import br.senac.sp.entidades.Cliente;
 
 /**
  *

@@ -1,7 +1,7 @@
 
 package br.senac.sp.validador;
 
-import br.senac.sp.classes.Venda;
+import br.senac.sp.entidades.Venda;
 import br.senac.sp.exceptions.VendaException;
 
 public class ValidadorVenda {

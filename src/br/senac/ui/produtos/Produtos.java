@@ -1,6 +1,6 @@
-package br.senac.br.ui.produtos;
+package br.senac.ui.produtos;
 
-import br.senac.sp.classes.Produto;
+import br.senac.sp.entidades.Produto;
 import br.senac.sp.exceptions.ProdutoException;
 import br.senac.sp.servicos.ServiceProduto;
 import java.awt.Dimension;
@@ -55,7 +55,10 @@ public class Produtos extends javax.swing.JInternalFrame {
         buttonConfirmarAdd = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
         setTitle("Produtos");
 
         jLabel1.setText("Pesquisar");
@@ -88,15 +91,13 @@ public class Produtos extends javax.swing.JInternalFrame {
 
         tabelaResultados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome", "Descrição", "Categoria", "Composição", "Marca", "Tamanho", "Valor", "Quantidade"
             }
         ));
+        tabelaResultados.setEnabled(false);
         jScrollPane2.setViewportView(tabelaResultados);
 
         buttonVoltar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -285,7 +286,7 @@ public class Produtos extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 327, Short.MAX_VALUE)
+            .addComponent(jTabbedPane)
         );
 
         jTabbedPane.getAccessibleContext().setAccessibleName("Manusear");

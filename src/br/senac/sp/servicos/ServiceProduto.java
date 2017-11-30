@@ -3,7 +3,7 @@ package br.senac.sp.servicos;
 import br.senac.sp.exceptions.ProdutoException;
 import br.senac.sp.dados.MockProduto;
 import br.senac.sp.exceptions.DataSourceException;
-import br.senac.sp.classes.Produto;
+import br.senac.sp.entidades.Produto;
 import br.senac.sp.validador.ValidadorProduto;
 import java.util.List;
 

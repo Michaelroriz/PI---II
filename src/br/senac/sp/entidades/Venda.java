@@ -1,8 +1,8 @@
-package br.senac.sp.classes;
+package br.senac.sp.entidades;
 
 
-import br.senac.sp.classes.Cliente;
-import br.senac.sp.classes.Produto;
+import br.senac.sp.entidades.Cliente;
+import br.senac.sp.entidades.Produto;
 import java.util.Date;
 
 public class Venda {

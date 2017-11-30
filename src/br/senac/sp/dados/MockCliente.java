@@ -1,6 +1,6 @@
 package br.senac.sp.dados;
 
-import br.senac.sp.classes.Cliente;
+import br.senac.sp.entidades.Cliente;
 import java.util.ArrayList;
 import java.util.List;
 
