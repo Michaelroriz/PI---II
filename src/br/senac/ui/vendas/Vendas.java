@@ -76,7 +76,7 @@ public class Vendas extends javax.swing.JInternalFrame {
         ));
         jScrollPane3.setViewportView(jTable3);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Venda");
 
         buttonCancelar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -119,10 +119,7 @@ public class Vendas extends javax.swing.JInternalFrame {
 
         tabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome", "Descrição", "Categoria", "Composição", "Marca", "Tamanho", "Valor", "Quantidade"
@@ -147,10 +144,7 @@ public class Vendas extends javax.swing.JInternalFrame {
 
         tableCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Id", "Nome", "Sobrenome", "CPF"
