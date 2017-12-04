@@ -53,7 +53,7 @@ public class validadorCliente {
             throw new ClienteException("É necessário informar um CPF");
 
         }
-        if (cliente.getEstado()== null || "".equals(cliente.getEstado())) {
+        if (cliente.getEstado()== null || "".equals(cliente.getEstado()) || cliente.getEstado().equals("Estado")) {
             throw new ClienteException("É necessário informar um Estado");
 
         }
