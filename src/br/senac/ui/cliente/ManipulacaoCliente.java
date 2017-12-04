@@ -71,6 +71,7 @@ public class ManipulacaoCliente extends javax.swing.JInternalFrame {
         alterar_Cli = new javax.swing.JButton();
         button_buscar = new javax.swing.JButton();
         voltar_button = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
 
         setClosable(true);
@@ -145,17 +146,15 @@ public class ManipulacaoCliente extends javax.swing.JInternalFrame {
             .addGroup(Cadastrar_CliLayout.createSequentialGroup()
                 .addGap(111, 111, 111)
                 .addGroup(Cadastrar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Cadastrar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(Cadastrar_CliLayout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(44, 44, 44)
-                            .addComponent(txt_nome))
-                        .addGroup(Cadastrar_CliLayout.createSequentialGroup()
-                            .addGroup(Cadastrar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel7))
-                            .addGap(18, 18, 18)
-                            .addGroup(Cadastrar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Cadastrar_CliLayout.createSequentialGroup()
+                        .addGroup(Cadastrar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(Cadastrar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(Cadastrar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txt_sobrenome)
                                 .addComponent(txt_cpf)
                                 .addComponent(data_nasc)
@@ -178,7 +177,7 @@ public class ManipulacaoCliente extends javax.swing.JInternalFrame {
                     .addGroup(Cadastrar_CliLayout.createSequentialGroup()
                         .addGap(123, 123, 123)
                         .addComponent(jLabel4)))
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addContainerGap(188, Short.MAX_VALUE))
         );
         Cadastrar_CliLayout.setVerticalGroup(
             Cadastrar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,7 +228,7 @@ public class ManipulacaoCliente extends javax.swing.JInternalFrame {
                     .addComponent(jLabel11)
                     .addComponent(txt_complemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(combo_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout Panel_CliLayout = new javax.swing.GroupLayout(Panel_Cli);
@@ -245,6 +244,8 @@ public class ManipulacaoCliente extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Cadastrar", Panel_Cli);
 
+        Consultar_Cli.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel13.setText("Cliente:");
 
         jLabel14.setText("(insira o nome, código  ou cpf do cliente a ser pesquisado)");
@@ -257,11 +258,13 @@ public class ManipulacaoCliente extends javax.swing.JInternalFrame {
             new String [] {
                 "ID", "Nome", "Sobrenome", "Genero", "CPF"
             }
-        ));
-        tabelaResultado.setEnabled(false);
-        tabelaResultado.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelaResultadoMouseClicked(evt);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tabelaResultado);
@@ -297,6 +300,8 @@ public class ManipulacaoCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel12.setText("Selecione o Cliente na Tabela.");
+
         javax.swing.GroupLayout Consultar_CliLayout = new javax.swing.GroupLayout(Consultar_Cli);
         Consultar_Cli.setLayout(Consultar_CliLayout);
         Consultar_CliLayout.setHorizontalGroup(
@@ -304,7 +309,7 @@ public class ManipulacaoCliente extends javax.swing.JInternalFrame {
             .addGroup(Consultar_CliLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(Consultar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
                     .addGroup(Consultar_CliLayout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -316,9 +321,12 @@ public class ManipulacaoCliente extends javax.swing.JInternalFrame {
                                 .addComponent(button_buscar)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(Consultar_CliLayout.createSequentialGroup()
-                        .addComponent(alterar_Cli)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(excluir_Cli)
+                        .addGroup(Consultar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Consultar_CliLayout.createSequentialGroup()
+                                .addComponent(alterar_Cli)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(excluir_Cli))
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(voltar_button)))
                 .addContainerGap())
@@ -333,14 +341,18 @@ public class ManipulacaoCliente extends javax.swing.JInternalFrame {
                     .addComponent(jLabel13)
                     .addComponent(txt_pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button_buscar))
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(Consultar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(Consultar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(voltar_button)
-                    .addComponent(alterar_Cli)
-                    .addComponent(excluir_Cli))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(Consultar_CliLayout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(Consultar_CliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(alterar_Cli)
+                            .addComponent(excluir_Cli))))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Consultar", Consultar_Cli);
@@ -368,7 +380,7 @@ public class ManipulacaoCliente extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -376,20 +388,7 @@ public class ManipulacaoCliente extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-//    public boolean ehInteiro(String s) {
-//        // cria um array de char
-//        char[] c = s.toCharArray();
-//        boolean d = true;
-//        for (int i = 0; i < c.length; i++) // verifica se o char não é um dígito
-//        {
-//            if (!Character.isDigit(c[i])) {
-//                d = false;
-//                break;
-//
-//            }
-//        }
-//        return d;
-//    }
+
     
 
     private void button_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_buscarActionPerformed
@@ -453,38 +452,9 @@ public class ManipulacaoCliente extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_voltar_buttonActionPerformed
 
-    private void tabelaResultadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaResultadoMouseClicked
-        //Verifica se o clique é um clique duplo
-        if (evt.getClickCount() == 2) {
-            try {
-                // Obtém a linha selecionada da tabela de resultados
-                final int row = tabelaResultado.getSelectedRow();
-                // Obtém o valor do ID da coluna "ID" da tabela de resultados
-                Integer id = (Integer) tabelaResultado.getValueAt(row, 0);
-                //Com o ID da coluna, chama o serviço de cliente para obter o cliente com dados atualizados do banco
-                Cliente cliente = ServicoCliente.obterCliente(id);
-
-                //Cria uma nova instancia da tela de edição, cofigura o cliente selecionado como elemento a ser editado e mostra a tela de edição.
-                // para exibir a tela énecessário adiciona-lá ao componente de desktop, o "PAI" da janela corrente
-                formEditarCliente.dispose();
-                formEditarCliente = new TelaEditarCliente();
-                formEditarCliente.setCliente(cliente);
-                formEditarCliente.setTitle(cliente.getNome() + " " + cliente.getSobrenome() + " " + cliente.getCpf() + " " + cliente.getDataNascimento() + " " + cliente.getGenero() + " " + cliente.getRua() + " " + cliente.getBairro() + " " + cliente.getCep() + " " + cliente.getCidade() + " " + cliente.getComplemento() + " " + cliente.getEstado());
-                this.getParent().add(formEditarCliente);
-                formEditarCliente.toFront();
-            } catch (Exception e) {
-                // Se ocorrer algum erro técnico, mostra-o no console, mas esconde do usuário
-                e.printStackTrace();
-                //Exibe uma menssagem de erro genérica ao usuário
-                JOptionPane.showInternalMessageDialog(rootPane, "Não é possivel" + "Exibir os detalhes deste cliente.", "Erro ao abrir detalhe", JOptionPane.ERROR_MESSAGE);
-
-            }
-        }
-
-    }//GEN-LAST:event_tabelaResultadoMouseClicked
-
     private void alterar_CliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterar_CliActionPerformed
         try {
+            
             //Obtém a linha selecionada na tabela de resultados
             final int row = tabelaResultado.getSelectedRow();
             //Verifica se há linha selecionada na tabela
@@ -504,11 +474,11 @@ public class ManipulacaoCliente extends javax.swing.JInternalFrame {
                 formEditarCliente.dispose();
                 formEditarCliente = new TelaEditarCliente();
                 formEditarCliente.setCliente(cliente);
-                formEditarCliente.setName(cliente.getNome() + " " + cliente.getSobrenome() + " " + cliente.getCpf() + " " + cliente.getDataNascimento() + " " + cliente.getGenero() + " " + cliente.getRua() + " " + cliente.getBairro() + " " + cliente.getCep() + " " + cliente.getCidade() + " " + cliente.getComplemento() + " " + cliente.getEstado());
-                formEditarCliente.setVisible(true);
-
-                //this.openFrameInCenter(formEditarProduto);
+                formEditarCliente.setName((cliente.getNome()) + " " + cliente.getSobrenome() + " " + cliente.getCpf() + " " + cliente.getDataNascimento() + " " + cliente.getGenero() + " " + cliente.getRua() + " " + cliente.getBairro() + " " + cliente.getCep() + " " + cliente.getCidade() + " " + cliente.getComplemento() + " " + cliente.getEstado());
+                this.getParent().add(formEditarCliente);
+                this.openFrameInCenter(formEditarCliente);
                 formEditarCliente.toFront();
+                System.out.println("Consegui");
             }
         } catch (Exception e) {
             //Se ocorrer algum erro técnico, mostra-o no console,
@@ -625,6 +595,7 @@ public class ManipulacaoCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
