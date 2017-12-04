@@ -177,8 +177,7 @@ public class ManipulacaoCliente extends javax.swing.JInternalFrame {
                     .addComponent(jLabel11)
                     .addGroup(Cadastrar_CliLayout.createSequentialGroup()
                         .addGap(123, 123, 123)
-                        .addComponent(jLabel4)
-                        .addGap(122, 122, 122)))
+                        .addComponent(jLabel4)))
                 .addContainerGap(179, Short.MAX_VALUE))
         );
         Cadastrar_CliLayout.setVerticalGroup(
