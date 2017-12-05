@@ -18,7 +18,7 @@ public class Menu extends javax.swing.JFrame {
     private ManipulacaoCliente manipulacaoCliente = null;
     private Produtos produtos = null;
     private Vendas vendas = null;
-
+    private RelatorioVendas relatorioVvendas = null;
     /**
      * Construtor
      */
@@ -178,6 +178,11 @@ public class Menu extends javax.swing.JFrame {
         MenuVendas.add(jSeparator3);
 
         jMenuItem7.setText("Relatorio de Vendas");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         MenuVendas.add(jMenuItem7);
 
         jMenuBar1.add(MenuVendas);
@@ -244,6 +249,17 @@ public class Menu extends javax.swing.JFrame {
         }
         vendas.toFront();
     }//GEN-LAST:event_menuAcaoVendaActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        
+        if (relatorioVvendas == null || !relatorioVvendas.isDisplayable()) {
+            relatorioVvendas = new RelatorioVendas();
+            jDesktopPane.add(relatorioVvendas);
+            this.openFrameInCenter(relatorioVvendas);
+
+        }
+        relatorioVvendas.toFront();
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
     /*
     *  Método de Criação de frame Centralizado na tela
      */
