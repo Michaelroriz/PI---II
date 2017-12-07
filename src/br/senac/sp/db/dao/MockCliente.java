@@ -1,4 +1,4 @@
-package br.senac.sp.dados;
+package br.senac.sp.db.dao;
 
 import br.senac.sp.entidades.Cliente;
 import java.util.ArrayList;

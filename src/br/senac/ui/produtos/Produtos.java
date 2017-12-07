@@ -96,9 +96,32 @@ public class Produtos extends javax.swing.JInternalFrame {
             new String [] {
                 "Código", "Nome", "Descrição", "Categoria", "Composição", "Marca", "Tamanho", "Valor", "Quantidade"
             }
-        ));
-        tabelaResultados.setEnabled(false);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaResultados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaResultadosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tabelaResultados);
+        if (tabelaResultados.getColumnModel().getColumnCount() > 0) {
+            tabelaResultados.getColumnModel().getColumn(0).setHeaderValue("Código");
+            tabelaResultados.getColumnModel().getColumn(1).setHeaderValue("Nome");
+            tabelaResultados.getColumnModel().getColumn(2).setHeaderValue("Descrição");
+            tabelaResultados.getColumnModel().getColumn(3).setHeaderValue("Categoria");
+            tabelaResultados.getColumnModel().getColumn(4).setHeaderValue("Composição");
+            tabelaResultados.getColumnModel().getColumn(5).setHeaderValue("Marca");
+            tabelaResultados.getColumnModel().getColumn(6).setHeaderValue("Tamanho");
+            tabelaResultados.getColumnModel().getColumn(7).setHeaderValue("Valor");
+            tabelaResultados.getColumnModel().getColumn(8).setHeaderValue("Quantidade");
+        }
 
         buttonVoltar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         buttonVoltar.setText("Voltar");
@@ -466,43 +489,7 @@ public class Produtos extends javax.swing.JInternalFrame {
         //retornamos "true" para o elemento acionante, indicando
         //que não devem ser exibidas mensagens de erro
         return true;
-    }
-
-    private void tabelaResultadosMouseClicked(java.awt.event.MouseEvent evt) {
-        //Verifica se o clique é um clique duplo       
-        if (evt.getClickCount() == 2) {
-            try {
-                //Obtém a linha selecionada da tabela de resultados
-                final int row = tabelaResultados.getSelectedRow();
-                //Obtém o valor do ID da coluna "ID" da tabela de resultados
-                Integer id = (Integer) tabelaResultados.getValueAt(row, 0);
-
-                //Com o ID da coluna, chama o serviço de produto para
-                //obter o produto com dados atualizados do mock
-                Produto produto = ServiceProduto.obterProduto(id);
-
-                //Cria uma nova instância da tela de edição,
-                //configura o produto selecionado como elemento a
-                //ser editado e mostra a tela de edição.
-                //Para exibir a tela, é necessário adicioná-la ao
-                //componente de desktop, o "pai" da janela corrente
-                formEditarProduto.dispose();
-                formEditarProduto = new AltProduto();
-                formEditarProduto.setProduto(produto);
-                formEditarProduto.setTitle(produto.getNome() + " " + produto.getDescricao() + " " + produto.getCategoria() + " " + produto.getComposicao() + " " + produto.getMarca() + " " + produto.getTamanho() + " " + produto.getValor() + " " + produto.getQuantidade());
-                this.getParent().add(formEditarProduto);
-                formEditarProduto.toFront();
-            } catch (Exception e) {
-                //Se ocorrer algum erro técnico, mostra-o no console,
-                //mas esconde-o do usuário
-                e.printStackTrace();
-                //Exibe uma mensagem de erro genérica ao usuário
-                JOptionPane.showMessageDialog(rootPane, "Não é possível "
-                        + "exibir os detalhes deste produto.",
-                        "Erro ao abrir detalhe", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }
+    }    
 
     private void buttonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVoltarActionPerformed
         this.dispose();
@@ -529,11 +516,9 @@ public class Produtos extends javax.swing.JInternalFrame {
                 formEditarProduto.dispose();
                 formEditarProduto = new AltProduto();
                 formEditarProduto.setProduto(produto);
-                formEditarProduto.setName(produto.getNome() + " " + produto.getDescricao() + " " + produto.getCategoria() + " " + produto.getComposicao() + " " + produto.getMarca() + " " + produto.getTamanho() + " " + produto.getValor() + " " + produto.getQuantidade());
-                formEditarProduto.setVisible(true);                
-                //this.getParent().add(formEditarProduto);
-                this.setLocationRelativeTo(formEditarProduto);
-                //this.openFrameInCenter(formEditarProduto);
+                formEditarProduto.setName(produto.getNome() + " " + produto.getDescricao() + " " + produto.getCategoria() + " " + produto.getComposicao() + " " + produto.getMarca() + " " + produto.getTamanho() + " " + produto.getValor() + " " + produto.getQuantidade());                              
+                this.getParent().add(formEditarProduto);                
+                this.openFrameInCenter(formEditarProduto);
                 formEditarProduto.toFront();
             }
         } catch (Exception e) {
@@ -585,6 +570,42 @@ public class Produtos extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tabelaResultadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaResultadosMouseClicked
+        //Verifica se o clique é um clique duplo       
+        if (evt.getClickCount() == 2) {
+            try {
+                //Obtém a linha selecionada da tabela de resultados
+                final int row = tabelaResultados.getSelectedRow();
+                //Obtém o valor do ID da coluna "ID" da tabela de resultados
+                Integer id = (Integer) tabelaResultados.getValueAt(row, 0);
+
+                //Com o ID da coluna, chama o serviço de produto para
+                //obter o produto com dados atualizados do mock
+                Produto produto = ServiceProduto.obterProduto(id);
+
+                //Cria uma nova instância da tela de edição,
+                //configura o produto selecionado como elemento a
+                //ser editado e mostra a tela de edição.
+                //Para exibir a tela, é necessário adicioná-la ao
+                //componente de desktop, o "pai" da janela corrente
+                formEditarProduto.dispose();
+                formEditarProduto = new AltProduto();
+                formEditarProduto.setProduto(produto);
+                formEditarProduto.setTitle(produto.getNome() + " " + produto.getDescricao() + " " + produto.getCategoria() + " " + produto.getComposicao() + " " + produto.getMarca() + " " + produto.getTamanho() + " " + produto.getValor() + " " + produto.getQuantidade());
+                this.getParent().add(formEditarProduto);
+                formEditarProduto.toFront();
+            } catch (Exception e) {
+                //Se ocorrer algum erro técnico, mostra-o no console,
+                //mas esconde-o do usuário
+                e.printStackTrace();
+                //Exibe uma mensagem de erro genérica ao usuário
+                JOptionPane.showMessageDialog(rootPane, "Não é possível "
+                        + "exibir os detalhes deste produto.",
+                        "Erro ao abrir detalhe", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_tabelaResultadosMouseClicked
     //Abre um internal frame centralizado na tela
     public void openFrameInCenter(JInternalFrame jif) {
         Dimension desktopSize = this.getParent().getSize();
@@ -627,13 +648,4 @@ public class Produtos extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane;
     private javax.swing.JTable tabelaResultados;
     // End of variables declaration//GEN-END:variables
-
-    private void setLocationRelativeTo(AltProduto formEditarProduto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-//    private void openFrameInCenter(AlterarProduto formEditarProduto) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-
 }

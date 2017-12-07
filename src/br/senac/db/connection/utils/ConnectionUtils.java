@@ -1,4 +1,4 @@
-package br.senac.jdbc.connection.utils;
+package br.senac.db.connection.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.util.Properties;
 /**
  * @author Michael
  */
-public class ConexaoJavaDB {
+public class ConnectionUtils {
     private static Connection connection = null;
     
     //Obtém uma conexão com o banco de dados

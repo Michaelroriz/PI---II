@@ -2,8 +2,6 @@ package br.senac.ui.produtos;
 
 import br.senac.sp.entidades.Produto;
 import br.senac.sp.servicos.ServiceProduto;
-import com.sun.glass.events.MouseEvent;
-
 import javax.swing.JOptionPane;
 
 /**
@@ -13,7 +11,7 @@ import javax.swing.JOptionPane;
 public class AltProduto extends javax.swing.JInternalFrame {
 
     Produto produto = new Produto();
-    
+    String ultimaPesquisa = null;
     public AltProduto() {
         initComponents();        
     }
@@ -53,7 +51,6 @@ public class AltProduto extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         fieldQuantidadeAlt = new javax.swing.JTextField();
         buttonCancelar = new javax.swing.JButton();
-        buttonSetarDados = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Alterar Produto");
@@ -110,13 +107,6 @@ public class AltProduto extends javax.swing.JInternalFrame {
             }
         });
 
-        buttonSetarDados.setText("Setar dados");
-        buttonSetarDados.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSetarDadosActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelAlterar1Layout = new javax.swing.GroupLayout(jPanelAlterar1);
         jPanelAlterar1.setLayout(jPanelAlterar1Layout);
         jPanelAlterar1Layout.setHorizontalGroup(
@@ -142,32 +132,29 @@ public class AltProduto extends javax.swing.JInternalFrame {
                         .addComponent(buttonConfirmarAlt))
                     .addGroup(jPanelAlterar1Layout.createSequentialGroup()
                         .addGroup(jPanelAlterar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelAlterar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(fieldDescricaoAlt, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(fieldComposicaoAlt)
-                            .addComponent(fieldMarcaAlt)
-                            .addComponent(comboBoxCategoriaAlt, 0, 545, Short.MAX_VALUE)
-                            .addComponent(fieldNomeAlt))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanelAlterar1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(buttonSetarDados)))
+                            .addGroup(jPanelAlterar1Layout.createSequentialGroup()
+                                .addGroup(jPanelAlterar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanelAlterar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(fieldDescricaoAlt, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(fieldComposicaoAlt)
+                                    .addComponent(fieldMarcaAlt)
+                                    .addComponent(comboBoxCategoriaAlt, 0, 545, Short.MAX_VALUE)
+                                    .addComponent(fieldNomeAlt)))
+                            .addComponent(jLabel4))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelAlterar1Layout.setVerticalGroup(
             jPanelAlterar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAlterar1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanelAlterar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(buttonSetarDados))
+                .addGap(28, 28, 28)
+                .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addGroup(jPanelAlterar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -279,13 +266,9 @@ public class AltProduto extends javax.swing.JInternalFrame {
     private void fieldValorAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldValorAltActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldValorAltActionPerformed
-
-    private void buttonSetarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSetarDadosActionPerformed
-        formFrameOpened();
-    }//GEN-LAST:event_buttonSetarDadosActionPerformed
     //Listener de abertura da janela. Aproveita o evento para obter os valores
     //do cliente em edição e passa-os para os campos de edição da tela
-    private void formFrameOpened() {                                         
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {                                         
         fieldNomeAlt.setText(produto.getNome());
         fieldDescricaoAlt.setText(produto.getDescricao());
         fieldComposicaoAlt.setText(produto.getComposicao());
@@ -306,7 +289,6 @@ public class AltProduto extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancelar;
     private javax.swing.JButton buttonConfirmarAlt;
-    private javax.swing.JButton buttonSetarDados;
     private javax.swing.JComboBox<String> comboBoxCategoriaAlt;
     private javax.swing.JTextField fieldComposicaoAlt;
     private javax.swing.JTextField fieldDescricaoAlt;
@@ -326,8 +308,5 @@ public class AltProduto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanelAlterar1;
     // End of variables declaration//GEN-END:variables
-
-    private void setarDados() {
-        formFrameOpened();
-    }
+    
 }

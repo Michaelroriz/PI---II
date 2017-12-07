@@ -1,7 +1,7 @@
 package br.senac.sp.servicos;
 
 import br.senac.sp.exceptions.ProdutoException;
-import br.senac.sp.dados.MockProduto;
+import br.senac.sp.db.dao.DaoProduto;
 import br.senac.sp.exceptions.DataSourceException;
 import br.senac.sp.entidades.Produto;
 import br.senac.sp.validador.ValidadorProduto;
@@ -19,7 +19,7 @@ public class ServiceProduto {
 
         try {
             //Realiza a chamada de inserção na fonte de dados
-            MockProduto.inserir(produto);
+            DaoProduto.inserir(produto);
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devolve
             //uma exceção e uma mensagem amigável a camada de visão
@@ -37,7 +37,7 @@ public class ServiceProduto {
 
         try {
             //Realiza a chamada de atualização na fonte de dados
-            MockProduto.atualizar(produto);
+            DaoProduto.atualizar(produto);
             return;
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devolve
@@ -55,9 +55,9 @@ public class ServiceProduto {
             //Caso afirmativo, realiza uma listagem simples do mock.
             //Caso contrário, realiza uma pesquisa com o parâmetro
             if (nome == null || "".equals(nome)) {
-                return MockProduto.listar();
+                return DaoProduto.listar();
             } else {
-                return MockProduto.procurar(nome);
+                return DaoProduto.procurar(nome);
             }
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devolve
@@ -72,7 +72,7 @@ public class ServiceProduto {
             throws ProdutoException, DataSourceException {
         try {
             //Retorna o produto obtido com o DAO
-            return MockProduto.obter(id);
+            return DaoProduto.obter(id);
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devolve
             //uma exceção e uma mensagem amigável a camada de visão
@@ -86,7 +86,7 @@ public class ServiceProduto {
             throws ProdutoException, DataSourceException {
         try {
             //Solicita ao DAO a exclusão do produto informado
-            MockProduto.excluir(id);
+            DaoProduto.excluir(id);
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devolve
             //uma exceção e uma mensagem amigável a camada de visão

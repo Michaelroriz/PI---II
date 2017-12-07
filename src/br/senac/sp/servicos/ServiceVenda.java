@@ -6,7 +6,7 @@
 package br.senac.sp.servicos;
 
 import br.senac.sp.entidades.Venda;
-import br.senac.sp.dados.MockVenda;
+import br.senac.sp.db.dao.DaoVenda;
 import br.senac.sp.exceptions.DataSourceException;
 import br.senac.sp.exceptions.VendaException;
 import br.senac.sp.validador.ValidadorVenda;
@@ -26,7 +26,7 @@ public class ServiceVenda {
 
         try {
             //Realiza a chamada de inserção na fonte de dados
-            MockVenda.inserir(venda);
+            DaoVenda.inserir(venda);
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devolve
             //uma exceção e uma mensagem amigável a camada de visão
@@ -45,9 +45,9 @@ public class ServiceVenda {
             //Caso afirmativo, realiza uma listagem simples do mock.
             //Caso contrário, realiza uma pesquisa com o parâmetro
             if (nome == null || "".equals(nome)) {
-                return MockVenda.listar();
+                return DaoVenda.listar();
             } else {
-                return MockVenda.procurar(nome);
+                return DaoVenda.procurar(nome);
             }
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devolve
@@ -62,7 +62,7 @@ public class ServiceVenda {
             throws VendaException, DataSourceException {
         try {
             //Retorna o venda obtido com o DAO
-            return MockVenda.obter(id);
+            return DaoVenda.obter(id);
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devolve
             //uma exceção e uma mensagem amigável a camada de visão
@@ -76,7 +76,7 @@ public class ServiceVenda {
             throws VendaException, DataSourceException {
         try {
             //Solicita ao DAO a exclusão do venda informado
-            MockVenda.excluir(id);
+            DaoVenda.excluir(id);
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devolve
             //uma exceção e uma mensagem amigável a camada de visão
