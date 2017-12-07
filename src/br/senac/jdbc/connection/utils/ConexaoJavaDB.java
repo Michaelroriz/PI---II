@@ -18,12 +18,12 @@ public class ConexaoJavaDB {
         if (connection == null || connection.isClosed()) {
             
             //Declaração de endereço de conexão com o banco de dados
-            String dbUrl = "jdbc:derby://localhost:1572/<<?NOME BD?>>";
+            String dbUrl = "jdbc:derby://localhost:1572/<<?ROOT?>>";
             
             //Propriedades para armazenamento do usuário e da senha do banco
             Properties properties = new Properties();
-            properties.put("user", "utest");
-            properties.put("password", "test");
+            properties.put("user", "root");
+            properties.put("password", "root");
             
             //Realiza a conexão com o banco
             connection = DriverManager.getConnection(dbUrl, properties);
