@@ -1,10 +1,10 @@
-package br.senac.sp.dados;
+package br.senac.sp.db.dao;
 
 import br.senac.sp.entidades.Venda;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MockVenda {
+public class DaoVenda {
 
     // armazena a lista de Vendas
     private static List<Venda> listaVendas = new ArrayList<Venda>();

@@ -1,4 +1,4 @@
-package br.senac.jdbc.connection.utils;
+package br.senac.db.connection.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.util.Properties;
 /**
  * @author Michael
  */
-public class ConexaoJavaDB {
+public class ConnectionUtils {
     private static Connection connection = null;
     
     //Obtém uma conexão com o banco de dados
@@ -18,7 +18,7 @@ public class ConexaoJavaDB {
         if (connection == null || connection.isClosed()) {
             
             //Declaração de endereço de conexão com o banco de dados
-            String dbUrl = "jdbc:derby://localhost:1572/<<?ROOT?>>";
+            String dbUrl = "jdbc:derby://localhost:1572/<<?dados_cmb?>>";
             
             //Propriedades para armazenamento do usuário e da senha do banco
             Properties properties = new Properties();
