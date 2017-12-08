@@ -10,11 +10,11 @@ public class ValidadorVenda {
         if (venda == null) {
             throw new VendaException("Não foi informado um venda");
         }
-        if (venda.getCliente() == null || "".equals(venda.getCliente())) {
+        if ("".equals(venda.getCliente())) {
             throw new VendaException("É necessário informar "
                     + "o cliente que realizou a venda");
         }
-        if (venda.getProduto()== null || "".equals(venda.getProduto())) {
+        if ("".equals(venda.getProduto())) {
             throw new VendaException("É necessário informar "
                     + "o(s) produto(s) da venda");
         }

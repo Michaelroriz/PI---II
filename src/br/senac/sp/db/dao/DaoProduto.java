@@ -107,7 +107,7 @@ public class DaoProduto {
     public static void excluir(Integer id) throws SQLException, Exception  {
         //Monta a string de atualização do produto no BD, utilizando
         //prepared statement
-        String sql = "UPDATE produto SET enabled=? WHERE (codproduto=?)";
+        String sql = "DELETE FROM produto WHERE (codproduto=?)";
         //Conexão para abertura e fechamento
         Connection connection = null;
         //Statement para obtenção através da conexão, execução de
@@ -119,8 +119,8 @@ public class DaoProduto {
             //Cria um statement para execução de instruções SQL
             preparedStatement = connection.prepareStatement(sql);
             //Configura os parâmetros do "PreparedStatement"
-            preparedStatement.setBoolean(1, false);
-            preparedStatement.setInt(2, id);
+            
+            preparedStatement.setInt(1, id);
             
             //Executa o comando no banco de dados
             preparedStatement.execute();

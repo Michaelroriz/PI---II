@@ -2,7 +2,7 @@ package br.senac.sp.ui;
 
 import br.senac.ui.produtos.Produtos;
 import br.senac.ui.vendas.RelatorioVendas;
-import br.senac.ui.vendas.Vendas;
+import br.senac.ui.vendas.TelaVenda;
 import br.senac.ui.cliente.TelaEditarCliente;
 import br.senac.ui.cliente.ManipulacaoCliente;
 import java.awt.Dimension;
@@ -17,7 +17,7 @@ public class Menu extends javax.swing.JFrame {
     private TelaEditarCliente editarCliente = null;
     private ManipulacaoCliente manipulacaoCliente = null;
     private Produtos produtos = null;
-    private Vendas vendas = null;
+    private TelaVenda vendas = null;
     private RelatorioVendas relatorioVvendas = null;
     /**
      * Construtor
@@ -56,11 +56,11 @@ public class Menu extends javax.swing.JFrame {
         this.produtos = produtos;
     }
 
-    public Vendas getVendas() {
+    public TelaVenda getVenda() {
         return vendas;
     }
 
-    public void setVendas(Vendas vendas) {
+    public void setVenda(TelaVenda venda) {
         this.vendas = vendas;
     }
 
@@ -242,7 +242,7 @@ public class Menu extends javax.swing.JFrame {
      */
     private void menuAcaoVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAcaoVendaActionPerformed
         if (vendas == null || !vendas.isDisplayable()) {
-            vendas = new Vendas();
+            vendas = new TelaVenda();
             jDesktopPane.add(vendas);
             this.openFrameInCenter(vendas);
 

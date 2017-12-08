@@ -18,7 +18,7 @@ public class ConnectionUtils {
         if (connection == null || connection.isClosed()) {
             
             //Declaração de endereço de conexão com o banco de dados
-            String dbUrl = "jdbc:derby://localhost:1572/<<?dados_cmb?>>";
+            String dbUrl = "jdbc:derby://localhost:1572/dados_cmb";
             
             //Propriedades para armazenamento do usuário e da senha do banco
             Properties properties = new Properties();

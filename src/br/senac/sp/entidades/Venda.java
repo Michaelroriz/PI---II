@@ -4,12 +4,13 @@ package br.senac.sp.entidades;
 import br.senac.sp.entidades.Cliente;
 import br.senac.sp.entidades.Produto;
 import java.util.Date;
+import java.util.List;
 
 public class Venda {
     private Integer codigo;
     private Date data;
-   private Cliente cliente; 
-    private Produto produto; 
+   private int cliente; 
+    private int produto; 
 
     public Integer getCodigo() {
         return codigo;
@@ -27,19 +28,19 @@ public class Venda {
         this.data = data;
     }
     
-    public Cliente getCliente() {
+    public int getCliente() {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(int cliente) {
         this.cliente = cliente;
     }
 
-    public Produto getProduto() {
+    public int getProduto() {
         return produto;
     }
 
-    public void setProduto(Produto produto) {
+    public void setProduto(int produto) {
         this.produto = produto;
     }
     
