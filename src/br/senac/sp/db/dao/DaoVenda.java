@@ -23,8 +23,7 @@ public class DaoVenda {
             throws SQLException, Exception {
         //Monta a string de inserção de um venda no BD,
         //utilizando os dados do vendas passados como parâmetro
-        String sql = "INSERT INTO venda (data, codvenda, "
-                + "codcliente) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO venda (datavenda, cod_item, cod_cliente,valortotal,cnpj) VALUES (?, ?, ?)";
         //Conexão para abertura e fechamento
         Connection connection = null;
         //Statement para obtenção através da conexão, execução de
@@ -38,8 +37,10 @@ public class DaoVenda {
             //Configura os parâmetros do "PreparedStatement"
             Timestamp t = new Timestamp(venda.getData().getTime());
             preparedStatement.setTimestamp(1, t);
-            preparedStatement.setInt(2, venda.getCliente());
-            preparedStatement.setInt(3, venda.getProduto());           
+            preparedStatement.setInt(2, venda.getProduto());  
+            preparedStatement.setInt(3, venda.getCliente());         
+            preparedStatement.setDouble(4, venda.getValorTotal());         
+            preparedStatement.setString(5, venda.getCnpj());         
             
             //Executa o comando no banco de dados
             preparedStatement.execute();
@@ -65,7 +66,7 @@ public class DaoVenda {
     public static void excluir(int id) throws SQLException, Exception {
         //Monta a string de atualização do venda no BD, utilizando
         //prepared statement
-        String sql = "DELETE FROM venda SET WHERE (codigo=?)";
+        String sql = "DELETE FROM venda SET WHERE codigo = ?";
         //Conexão para abertura e fechamento
         Connection connection = null;
         //Statement para obtenção através da conexão, execução de
@@ -102,7 +103,7 @@ public class DaoVenda {
     public static List<Venda> listar()
             throws Exception {
         //Monta a string de listagem de vendas no banco
-        String sql = "SELECT * FROM venda";        
+        String sql = "SELECT  numNota,datavenda, cod_item, cod_cliente,valortotal,cnpj FROM venda";        
         //Lista de vendas de resultado
         List<Venda> listaVendas = null;
         //Conexão para abertura e fechamento
@@ -117,7 +118,6 @@ public class DaoVenda {
             connection = ConnectionUtils.getConnection();
             //Cria um statement para execução de instruções SQL
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setBoolean(1, true);
             
             //Executa a consulta SQL no banco de dados
             result = preparedStatement.executeQuery();
@@ -130,11 +130,13 @@ public class DaoVenda {
                 }
                 //Cria uma instância de Produto e popula com os valores do BD
                 Venda venda = new Venda();
-                venda.setCodigo(result.getInt("codigo"));
-                Date d = new Date(result.getTimestamp("data").getTime());
+                venda.setCodigo(result.getInt(1));
+                Date d = new Date(result.getTimestamp(2).getTime());
                 venda.setData(d);
-                venda.setCliente(result.getInt("cliente"));                
-                venda.setProduto(result.getInt("produto"));
+                venda.setCliente(result.getInt(4));                
+                venda.setProduto(result.getInt(3));
+                venda.setValorTotal(result.getDouble(5));
+                venda.setCnpj(result.getString(6));
                 
                 //Adiciona a instância na lista
                 listaVendas.add(venda);
@@ -171,7 +173,7 @@ public class DaoVenda {
         //nome ou sobrenome (através do "LIKE" e ignorando minúsculas
         //ou maiúsculas, através do "UPPER" aplicado à coluna e ao
         //parâmetro). 
-        String sql = "SELECT * FROM venda WHERE ((UPPER(venda.data) LIKE UPPER(?))) ";            
+        String sql = "SELECT numNota,datavenda, cod_item, cod_cliente,valortotal,cnpj FROM venda WHERE valortotal = ? ";            
         //Lista de venda de resultado
         List<Venda> listaVendas = null;
         //Conexão para abertura e fechamento
@@ -188,8 +190,6 @@ public class DaoVenda {
             preparedStatement = connection.prepareStatement(sql);
             //Configura os parâmetros do "PreparedStatement"
             preparedStatement.setString(1, "%" + valor + "%");
-            preparedStatement.setString(2, "%" + valor + "%");
-            preparedStatement.setBoolean(3, true);
             
             //Executa a consulta SQL no banco de dados
             result = preparedStatement.executeQuery();
@@ -202,11 +202,13 @@ public class DaoVenda {
                 }
                 //Cria uma instância de Venda e popula com os valores do BD
                 Venda venda = new Venda();
-                venda.setCodigo(result.getInt("codigo"));
-                Date d = new Date(result.getTimestamp("data").getTime());
+                venda.setCodigo(result.getInt(1));
+                Date d = new Date(result.getTimestamp(2).getTime());
                 venda.setData(d);
-                venda.setCliente(result.getInt("cliente"));                
-                venda.setProduto(result.getInt("produto"));
+                venda.setCliente(result.getInt(4));                
+                venda.setProduto(result.getInt(3));
+                venda.setValorTotal(result.getDouble(5));
+                venda.setCnpj(result.getString(6));
                                
                 //Adiciona a instância na lista
                 listaVendas.add(venda);
@@ -240,7 +242,7 @@ public class DaoVenda {
             throws SQLException, Exception {
         //Compõe uma String de consulta que considera apenas o produto
         //com o ID informado
-        String sql = "SELECT * FROM venda WHERE (venda=?)";
+        String sql = "SELECT numNota,datavenda, cod_item, cod_cliente,valortotal,cnpj FROM venda WHERE numNota = ?";
 
         //Conexão para abertura e fechamento
         Connection connection = null;
@@ -265,11 +267,13 @@ public class DaoVenda {
             if (result.next()) {                
                 //Cria uma instância de Venda e popula com os valores do BD
                 Venda venda = new Venda();
-                venda.setCodigo(result.getInt("codigo"));
-                Date d = new Date(result.getTimestamp("data").getTime());
+                venda.setCodigo(result.getInt(1));
+                Date d = new Date(result.getTimestamp(2).getTime());
                 venda.setData(d);
-                venda.setCliente(result.getInt("cliente"));                
-                venda.setProduto(result.getInt("produto"));
+                venda.setCliente(result.getInt(4));                
+                venda.setProduto(result.getInt(3));
+                venda.setValorTotal(result.getDouble(5));
+                venda.setCnpj(result.getString(6));
                                 
                 //Retorna o resultado
                 return venda;

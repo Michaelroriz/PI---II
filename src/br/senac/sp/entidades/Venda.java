@@ -1,16 +1,18 @@
 package br.senac.sp.entidades;
 
-
 import br.senac.sp.entidades.Cliente;
 import br.senac.sp.entidades.Produto;
 import java.util.Date;
 import java.util.List;
 
 public class Venda {
+
     private Integer codigo;
     private Date data;
-   private int cliente; 
-    private int produto; 
+    private int cliente;
+    private int produto;
+    private String cnpj;
+    private double valorTotal;
 
     public Integer getCodigo() {
         return codigo;
@@ -27,7 +29,7 @@ public class Venda {
     public void setData(Date data) {
         this.data = data;
     }
-    
+
     public int getCliente() {
         return cliente;
     }
@@ -43,7 +45,22 @@ public class Venda {
     public void setProduto(int produto) {
         this.produto = produto;
     }
-    
-    
-}
 
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+    
+
+}

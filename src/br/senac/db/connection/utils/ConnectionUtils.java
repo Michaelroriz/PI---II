@@ -1,35 +1,36 @@
 package br.senac.db.connection.utils;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Properties;
+import java.sql.*;
+import javax.swing.JOptionPane;
 
-/**
- * @author Michael
- */
+/*
+*esta entidade tem como objetivo estabelecer conexao com o banco de dados
+*/
+
 public class ConnectionUtils {
-    private static Connection connection = null;
-    
-    //Obtém uma conexão com o banco de dados
-    public static Connection getConnection() throws SQLException {
-        //Só tenta abrir uma conexão se esta já não
-        //existir ou estiver fechada
-        if (connection == null || connection.isClosed()) {
-            
-            //Declaração de endereço de conexão com o banco de dados
-            String dbUrl = "jdbc:mysql://localhost:3306/cmb?autoReconnect=true&useSSL=false";
-            
-            //Propriedades para armazenamento do usuário e da senha do banco
-            Properties properties = new Properties();
-            properties.put("user", "root");
-            properties.put("password", "wolfdeveloper");
-            
-            //Realiza a conexão com o banco
-            connection = DriverManager.getConnection(dbUrl, properties);
+// conector
+
+    //conexao com o host do banco de dados
+    public static Connection getConnection() {
+        java.sql.Connection conexao = null;
+
+        //dados da conta do banco de dados
+        String driver = "com.mysql.jdbc.Driver";
+        String url = "jdbc:mysql://localhost:3306/cmb?autoReconnect=true&useSSL=false";
+        String user = "root";
+        String password = "wolfdeveloper";
+
+        try {
+            //referencia ao driver
+            Class.forName(driver);
+            //verificação da conta
+            conexao = DriverManager.getConnection(url, user, password);
+            // retorno da conexao
+            return conexao;
+        } catch (Exception e) {
+            //mensagem de erro
+            JOptionPane.showConfirmDialog(null, e);
+            return null;
         }
-        
-        //Retorna a conexão a quem chamou
-        return connection;
     }
 }

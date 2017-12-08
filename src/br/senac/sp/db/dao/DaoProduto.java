@@ -20,8 +20,7 @@ public class DaoProduto {
             throws SQLException, Exception {
         //Monta a string de inserção de um produto no BD,
         //utilizando os dados do produtos passados como parâmetro
-        String sql = "INSERT INTO produto (nomeproduto, descricao,marca, categoria, composicao,dimensoes, quantidade, preco)"
-                +" VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO produto (nomeproduto, descricao,marca, categoria, composicao,dimensoes, quantidade, preco) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         //Conexão para abertura e fechamento
         Connection connection = null;
         //Statement para obtenção através da conexão, execução de
@@ -63,8 +62,7 @@ public class DaoProduto {
             throws SQLException, Exception {
         //Monta a string de atualização do produto no BD, utilizando
         //prepared statement
-        String sql = "UPDATE produto SET nome=?, descricao=?, categoria=?, composicao=?, marca=?, tamanho=? valor=?, quantidade=? "
-                + "WHERE (codproduto=?)";
+        String sql = "UPDATE produto SET nome=?, descricao=?, categoria=?, composicao=?, marca=?, tamanho=? valor=?, quantidade=? WHERE codproduto = ?";
         //Conexão para abertura e fechamento
         Connection connection = null;
         //Statement para obtenção através da conexão, execução de
@@ -107,7 +105,7 @@ public class DaoProduto {
     public static void excluir(Integer id) throws SQLException, Exception {
         //Monta a string de atualização do produto no BD, utilizando
         //prepared statement
-        String sql = "DELETE FROM produto WHERE (codproduto=?)";
+        String sql = "DELETE FROM produto WHERE codproduto = ?";
         //Conexão para abertura e fechamento
         Connection connection = null;
         //Statement para obtenção através da conexão, execução de
@@ -140,7 +138,7 @@ public class DaoProduto {
     public static List<Produto> listar()
             throws SQLException, Exception {
         //Monta a string de listagem de produtos no banco
-        String sql = "SELECT * FROM produto";
+        String sql = "SELECT codproduto,nomeproduto, descricao,marca, categoria, composicao,dimensoes, quantidade, preco FROM produto";
         //Lista de produtos de resultado
         List<Produto> listaProdutos = null;
         //Conexão para abertura e fechamento
@@ -155,7 +153,6 @@ public class DaoProduto {
             connection = ConnectionUtils.getConnection();
             //Cria um statement para execução de instruções SQL
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setBoolean(1, true);
 
             //Executa a consulta SQL no banco de dados
             result = preparedStatement.executeQuery();
@@ -168,15 +165,15 @@ public class DaoProduto {
                 }
                 //Cria uma instância de Produto e popula com os valores do BD
                 Produto produto = new Produto();
-                produto.setCodigo(result.getInt("codproduto"));
-                produto.setNome(result.getString("nome"));
-                produto.setDescricao(result.getString("descricao"));
-                produto.setCategoria(result.getString("categoria"));
-                produto.setComposicao(result.getString("composicao"));
-                produto.setMarca(result.getString("marca"));
-                produto.setTamanho(result.getString("tamanho"));
-                produto.setValor(result.getFloat("valor"));
-                produto.setQuantidade(result.getInt("quantidade"));
+                produto.setCodigo(result.getInt(1));
+                produto.setNome(result.getString(2));
+                produto.setDescricao(result.getString(3));
+                produto.setCategoria(result.getString(5));
+                produto.setComposicao(result.getString(6));
+                produto.setMarca(result.getString(4));
+                produto.setTamanho(result.getString(7));
+                produto.setValor(result.getFloat(9));
+                produto.setQuantidade(result.getInt(8));
                 //Adiciona a instância na lista
                 listaProdutos.add(produto);
             }
@@ -207,8 +204,7 @@ public class DaoProduto {
         //nome ou sobrenome (através do "LIKE" e ignorando minúsculas
         //ou maiúsculas, através do "UPPER" aplicado à coluna e ao
         //parâmetro). 
-        String sql = "SELECT * FROM produto WHERE ((UPPER(nome) LIKE UPPER(?) "
-                + "OR UPPER(produto.marca) LIKE UPPER(?)))";
+        String sql = "SELECT codproduto,nomeproduto, descricao,marca, categoria, composicao,dimensoes, quantidade, preco FROM produto WHERE preco = ?";
         //Lista de produtos de resultado
         List<Produto> listaProdutos = null;
         //Conexão para abertura e fechamento
@@ -225,8 +221,6 @@ public class DaoProduto {
             preparedStatement = connection.prepareStatement(sql);
             //Configura os parâmetros do "PreparedStatement"
             preparedStatement.setString(1, "%" + valor + "%");
-            preparedStatement.setString(2, "%" + valor + "%");
-            preparedStatement.setBoolean(3, true);
 
             //Executa a consulta SQL no banco de dados
             result = preparedStatement.executeQuery();
@@ -239,15 +233,15 @@ public class DaoProduto {
                 }
                 //Cria uma instância de Produto e popula com os valores do BD
                 Produto produto = new Produto();
-                produto.setCodigo(result.getInt("codproduto"));
-                produto.setNome(result.getString("nome"));
-                produto.setDescricao(result.getString("descricao"));
-                produto.setCategoria(result.getString("categoria"));
-                produto.setComposicao(result.getString("composicao"));
-                produto.setMarca(result.getString("marca"));
-                produto.setTamanho(result.getString("tamanho"));
-                produto.setValor(result.getFloat("valor"));
-                produto.setQuantidade(result.getInt("quantidade"));
+                produto.setCodigo(result.getInt(1));
+                produto.setNome(result.getString(2));
+                produto.setDescricao(result.getString(3));
+                produto.setCategoria(result.getString(5));
+                produto.setComposicao(result.getString(6));
+                produto.setMarca(result.getString(4));
+                produto.setTamanho(result.getString(7));
+                produto.setValor(result.getFloat(9));
+                produto.setQuantidade(result.getInt(8));
 
                 //Adiciona a instância na lista
                 listaProdutos.add(produto);
@@ -275,7 +269,7 @@ public class DaoProduto {
             throws SQLException, Exception {
         //Compõe uma String de consulta que considera apenas o produto
         //com o ID informado
-        String sql = "SELECT * FROM produto WHERE (codproduto=?)";
+        String sql = "SELECT codproduto,nomeproduto, descricao,marca, categoria, composicao,dimensoes, quantidade, preco FROM produto WHERE codproduto = ?";
 
         //Conexão para abertura e fechamento
         Connection connection = null;
@@ -291,7 +285,6 @@ public class DaoProduto {
             preparedStatement = connection.prepareStatement(sql);
             //Configura os parâmetros do "PreparedStatement"
             preparedStatement.setInt(1, id);
-            preparedStatement.setBoolean(2, true);
 
             //Executa a consulta SQL no banco de dados
             result = preparedStatement.executeQuery();
@@ -300,15 +293,15 @@ public class DaoProduto {
             if (result.next()) {
                 //Cria uma instância de Produto e popula com os valores do BD
                 Produto produto = new Produto();
-                produto.setCodigo(result.getInt("codproduto"));
-                produto.setNome(result.getString("nome"));
-                produto.setDescricao(result.getString("descricao"));
-                produto.setCategoria(result.getString("categoria"));
-                produto.setComposicao(result.getString("composicao"));
-                produto.setMarca(result.getString("marca"));
-                produto.setTamanho(result.getString("tamanho"));
-                produto.setValor(result.getFloat("valor"));
-                produto.setQuantidade(result.getInt("quantidade"));
+                produto.setCodigo(result.getInt(1));
+                produto.setNome(result.getString(2));
+                produto.setDescricao(result.getString(3));
+                produto.setCategoria(result.getString(5));
+                produto.setComposicao(result.getString(6));
+                produto.setMarca(result.getString(4));
+                produto.setTamanho(result.getString(7));
+                produto.setValor(result.getFloat(9));
+                produto.setQuantidade(result.getInt(8));
 
                 //Retorna o resultado
                 return produto;
