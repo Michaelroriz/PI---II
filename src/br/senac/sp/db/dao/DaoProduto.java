@@ -1,4 +1,5 @@
 package br.senac.sp.db.dao;
+
 import br.senac.db.connection.utils.ConnectionUtils;
 import br.senac.sp.entidades.Produto;
 import java.sql.Connection;
@@ -14,7 +15,7 @@ public class DaoProduto {
     private static int totalProdutos = 0;
     /**
      * Armazena a lista de produtos inseridos para manipulação. #MOCK *
-     */    
+     */
     private static List<Produto> listaProdutos = new ArrayList<Produto>();
 
     //Insere um produto no mock "produto"
@@ -22,8 +23,7 @@ public class DaoProduto {
             throws SQLException, Exception {
         //Monta a string de inserção de um produto no BD,
         //utilizando os dados do produtos passados como parâmetro
-        String sql = "INSERT INTO produto (nome, descricao, "
-                + "categoria, composição, marca, tamanho, valor, quantidade) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO produto " + "(nome, descricao, " + "categoria, composição, marca, tamanho, valor, quantidade) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         //Conexão para abertura e fechamento
         Connection connection = null;
         //Statement para obtenção através da conexão, execução de
@@ -42,7 +42,7 @@ public class DaoProduto {
             preparedStatement.setString(5, produto.getMarca());
             preparedStatement.setFloat(6, produto.getValor());
             preparedStatement.setInt(7, produto.getQuantidade());
-            
+
             //Executa o comando no banco de dados
             preparedStatement.execute();
         } finally {
@@ -64,7 +64,7 @@ public class DaoProduto {
         //Monta a string de atualização do produto no BD, utilizando
         //prepared statement
         String sql = "UPDATE produto SET nome=?, descricao=?, categoria=?, composicao=?, marca=?, tamanho=? valor=?, quantidade=? "
-            + "WHERE (codproduto=?)";
+                + "WHERE (codproduto=?)";
         //Conexão para abertura e fechamento
         Connection connection = null;
         //Statement para obtenção através da conexão, execução de
@@ -82,13 +82,13 @@ public class DaoProduto {
             preparedStatement.setString(4, produto.getComposicao());
             preparedStatement.setString(5, produto.getMarca());
             preparedStatement.setString(6, produto.getTamanho());
-            preparedStatement.setFloat(7, produto.getValor());            
+            preparedStatement.setFloat(7, produto.getValor());
             preparedStatement.setInt(8, produto.getQuantidade());
             preparedStatement.setInt(9, produto.getCodigo());
-            
+
             //Executa o comando no banco de dados
             preparedStatement.execute();
-         } finally {
+        } finally {
             //Se o statement ainda estiver aberto, realiza seu fechamento
             if (preparedStatement != null && !preparedStatement.isClosed()) {
                 preparedStatement.close();
@@ -97,14 +97,14 @@ public class DaoProduto {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
             }
-        }   
+        }
     }
 
     //Realiza a exclusão de um produto no mock, com ID fornecido
     //como parâmetro.A exclusão lógica simplesmente "desliga" o
     //produto, configurando um atributo específico, a ser ignorado
     //em todas as consultas de produto ("enabled").
-    public static void excluir(Integer id) throws SQLException, Exception  {
+    public static void excluir(Integer id) throws SQLException, Exception {
         //Monta a string de atualização do produto no BD, utilizando
         //prepared statement
         String sql = "DELETE FROM produto WHERE (codproduto=?)";
@@ -119,9 +119,9 @@ public class DaoProduto {
             //Cria um statement para execução de instruções SQL
             preparedStatement = connection.prepareStatement(sql);
             //Configura os parâmetros do "PreparedStatement"
-            
+
             preparedStatement.setInt(1, id);
-            
+
             //Executa o comando no banco de dados
             preparedStatement.execute();
         } finally {
@@ -140,7 +140,7 @@ public class DaoProduto {
     public static List<Produto> listar()
             throws SQLException, Exception {
         //Monta a string de listagem de produtos no banco
-        String sql = "SELECT * FROM produto";        
+        String sql = "SELECT * FROM produto";
         //Lista de produtos de resultado
         List<Produto> listaProdutos = null;
         //Conexão para abertura e fechamento
@@ -156,10 +156,10 @@ public class DaoProduto {
             //Cria um statement para execução de instruções SQL
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setBoolean(1, true);
-            
+
             //Executa a consulta SQL no banco de dados
             result = preparedStatement.executeQuery();
-            
+
             //Itera por cada item do resultado
             while (result.next()) {
                 //Se a lista não foi inicializada, a inicializa
@@ -170,7 +170,7 @@ public class DaoProduto {
                 Produto produto = new Produto();
                 produto.setCodigo(result.getInt("codproduto"));
                 produto.setNome(result.getString("nome"));
-                produto.setDescricao(result.getString("descricao"));                
+                produto.setDescricao(result.getString("descricao"));
                 produto.setCategoria(result.getString("categoria"));
                 produto.setComposicao(result.getString("composicao"));
                 produto.setMarca(result.getString("marca"));
@@ -208,7 +208,7 @@ public class DaoProduto {
         //ou maiúsculas, através do "UPPER" aplicado à coluna e ao
         //parâmetro). 
         String sql = "SELECT * FROM produto WHERE ((UPPER(nome) LIKE UPPER(?) "
-            + "OR UPPER(produto.marca) LIKE UPPER(?)))";
+                + "OR UPPER(produto.marca) LIKE UPPER(?)))";
         //Lista de produtos de resultado
         List<Produto> listaProdutos = null;
         //Conexão para abertura e fechamento
@@ -227,10 +227,10 @@ public class DaoProduto {
             preparedStatement.setString(1, "%" + valor + "%");
             preparedStatement.setString(2, "%" + valor + "%");
             preparedStatement.setBoolean(3, true);
-            
+
             //Executa a consulta SQL no banco de dados
             result = preparedStatement.executeQuery();
-            
+
             //Itera por cada item do resultado
             while (result.next()) {
                 //Se a lista não foi inicializada, a inicializa
@@ -241,14 +241,14 @@ public class DaoProduto {
                 Produto produto = new Produto();
                 produto.setCodigo(result.getInt("codproduto"));
                 produto.setNome(result.getString("nome"));
-                produto.setDescricao(result.getString("descricao"));                
+                produto.setDescricao(result.getString("descricao"));
                 produto.setCategoria(result.getString("categoria"));
                 produto.setComposicao(result.getString("composicao"));
                 produto.setMarca(result.getString("marca"));
                 produto.setTamanho(result.getString("tamanho"));
                 produto.setValor(result.getFloat("valor"));
                 produto.setQuantidade(result.getInt("quantidade"));
-                
+
                 //Adiciona a instância na lista
                 listaProdutos.add(produto);
             }
@@ -267,7 +267,7 @@ public class DaoProduto {
             }
         }
         //Retorna a lista de produtos do banco de dados
-        return listaProdutos;   
+        return listaProdutos;
     }
 
     //Obtém um produto da lista
@@ -290,29 +290,29 @@ public class DaoProduto {
             //Cria um statement para execução de instruções SQL
             preparedStatement = connection.prepareStatement(sql);
             //Configura os parâmetros do "PreparedStatement"
-            preparedStatement.setInt(1, id);            
+            preparedStatement.setInt(1, id);
             preparedStatement.setBoolean(2, true);
-            
+
             //Executa a consulta SQL no banco de dados
             result = preparedStatement.executeQuery();
-            
+
             //Verifica se há pelo menos um resultado
-            if (result.next()) {                
+            if (result.next()) {
                 //Cria uma instância de Produto e popula com os valores do BD
                 Produto produto = new Produto();
                 produto.setCodigo(result.getInt("codproduto"));
                 produto.setNome(result.getString("nome"));
-                produto.setDescricao(result.getString("descricao"));                
+                produto.setDescricao(result.getString("descricao"));
                 produto.setCategoria(result.getString("categoria"));
                 produto.setComposicao(result.getString("composicao"));
                 produto.setMarca(result.getString("marca"));
                 produto.setTamanho(result.getString("tamanho"));
                 produto.setValor(result.getFloat("valor"));
                 produto.setQuantidade(result.getInt("quantidade"));
-                                
+
                 //Retorna o resultado
                 return produto;
-            }            
+            }
         } finally {
             //Se o result ainda estiver aberto, realiza seu fechamento
             if (result != null && !result.isClosed()) {
