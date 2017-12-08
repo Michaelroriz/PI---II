@@ -1,6 +1,3 @@
-
-
-
 create table cliente (
 idcliente integer not null  auto_increment,
 nome varchar (255) not null,

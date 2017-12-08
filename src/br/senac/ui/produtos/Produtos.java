@@ -337,50 +337,6 @@ public class Produtos extends javax.swing.JInternalFrame {
                     "Falha ao obter lista", JOptionPane.ERROR_MESSAGE);
             return;
         }       
-//
-//        if (resultSearch && j!=0) {
-//            int resposta = JOptionPane.showConfirmDialog(rootPane,
-//                    "Produdo já cadastrado no sistema. Deseja aumentar o estoque do produto cadastrado?",
-//                    "Aviso", JOptionPane.YES_NO_OPTION);
-//            //Se o valor de resposta for "Sim" para a exclusão
-//            if (resposta == JOptionPane.YES_OPTION) {
-//
-//                try {
-//                    //****************************************************************************
-//                    int quant = Integer.parseInt(fieldQuantidadeAdd.getText());
-//                    List<Produto> resultado = ServiceProduto.
-//                procurarProduto(ultimaPesquisa);
-//                    
-//                    Produto produto = ServiceProduto.obterProduto(prod.getCodigo());
-//                    //****************************************************************************
-//                    formEditarProduto = new AlterarProduto();
-//                    formEditarProduto.setProduto(produto);
-//                    produto.setQuantidade(quant + produto.getQuantidade());
-//                    //formEditarProduto.setName(produto.getNome() + " " + produto.getDescricao() + " " + produto.getCategoria() + " " + produto.getComposicao() + " " + produto.getMarca() + " " + produto.getTamanho() + " " + produto.getValor() + " " + produto.getQuantidade());
-//                    //this.getParent().add(formEditarProduto);
-//                    //prod.setQuantidade(quant);
-//                } catch (Exception e) {
-//                    //Se ocorrer algum erro técnico, mostra-o no console,
-//                    //mas esconde-o do usuário
-//                    e.printStackTrace();
-//                    //Exibe uma mensagem de erro genérica ao usuário
-//                    JOptionPane.showMessageDialog(rootPane, "Não é possível "
-//                            + "aumentar o estoque deste produto.",
-//                            "Erro ao abrir detalhe", JOptionPane.ERROR_MESSAGE);
-//                }
-//            } else {
-//                //Limpa os campos da tela após realizar a inserção
-//                fieldNomeAdd.setText("");
-//                fieldDescricaoAdd.setText("");
-//                comboCategoriaAdd.setSelectedIndex(0);
-//                fieldComposicaoAdd.setText("");
-//                fieldMarcaAdd.setText("");
-//                fieldTamanhoAdd.setText("");
-//                fieldValorAdd.setText("");
-//                fieldQuantidadeAdd.setText("");
-//            }
-//        } else {
-            //****************************************************************************
 
             //Cria uma instância do produto e obtém
             //seus valores dos campos da tela

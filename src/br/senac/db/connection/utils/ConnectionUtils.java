@@ -18,7 +18,7 @@ public class ConnectionUtils {
         if (connection == null || connection.isClosed()) {
             
             //Declaração de endereço de conexão com o banco de dados
-            String dbUrl = "jdbc:mysql://localhost/cmb";
+            String dbUrl = "jdbc:mysql://localhost:3306/cmb?autoReconnect=true&useSSL=false";
             
             //Propriedades para armazenamento do usuário e da senha do banco
             Properties properties = new Properties();

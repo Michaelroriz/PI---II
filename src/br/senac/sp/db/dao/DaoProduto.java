@@ -13,17 +13,15 @@ import java.util.List;
 public class DaoProduto {
 
     private static int totalProdutos = 0;
-    /**
-     * Armazena a lista de produtos inseridos para manipulação. #MOCK *
-     */
-    private static List<Produto> listaProdutos = new ArrayList<Produto>();
+   
 
     //Insere um produto no mock "produto"
     public static void inserir(Produto produto)
             throws SQLException, Exception {
         //Monta a string de inserção de um produto no BD,
         //utilizando os dados do produtos passados como parâmetro
-        String sql = "INSERT INTO produto " + "(nome, descricao, " + "categoria, composição, marca, tamanho, valor, quantidade) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO produto (nomeproduto, descricao,marca, categoria, composicao,dimensoes, quantidade, preco)"
+                +" VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         //Conexão para abertura e fechamento
         Connection connection = null;
         //Statement para obtenção através da conexão, execução de
@@ -37,11 +35,13 @@ public class DaoProduto {
             //Configura os parâmetros do "PreparedStatement"
             preparedStatement.setString(1, produto.getNome());
             preparedStatement.setString(2, produto.getDescricao());
-            preparedStatement.setString(3, produto.getCategoria());
-            preparedStatement.setString(4, produto.getComposicao());
-            preparedStatement.setString(5, produto.getMarca());
-            preparedStatement.setFloat(6, produto.getValor());
-            preparedStatement.setInt(7, produto.getQuantidade());
+            preparedStatement.setString(3, produto.getMarca());
+            preparedStatement.setString(4, produto.getCategoria());
+            preparedStatement.setString(5, produto.getComposicao());
+            preparedStatement.setString(6, produto.getTamanho());
+            preparedStatement.setInt(7, produto.getQuantidade());            
+            preparedStatement.setDouble(8, produto.getValor());
+            
 
             //Executa o comando no banco de dados
             preparedStatement.execute();
